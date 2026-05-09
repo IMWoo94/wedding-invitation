@@ -25,9 +25,23 @@ Set the webhook URL before build, for example in `.env.local`:
 
 ```bash
 VITE_RSVP_SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+VITE_WEDDING_MUSIC_URL=https://example.com/private-or-licensed-music-url.mp3
 ```
 
 For GitHub Pages deployment, add the same value as the repository secret `VITE_RSVP_SLACK_WEBHOOK_URL`.
+
+## Background music
+
+`public/*.mp3`, `public/*.m4a`, `public/*.flac`, and `public/*.aac` are ignored so commercial music files are not accidentally committed or deployed as static public files.
+
+The music button reads `VITE_WEDDING_MUSIC_URL` when it is provided. If it is empty, it falls back to `public/wedding-music.wav`.
+
+Important: any audio URL used directly by a static GitHub Pages site can still be discovered in the browser network panel or built JavaScript. For non-public/commercial music, prefer not to deploy the full file publicly. Safer options are:
+- use a licensed/public streaming embed instead of direct file playback,
+- host a short licensed preview only,
+- or serve audio through a private backend/proxy with proper access controls.
+
+For GitHub Pages deployment, add `VITE_WEDDING_MUSIC_URL` as a repository secret only if the URL is safe to expose to visitors.
 
 Note: Vite variables are embedded into the static frontend bundle. For a public invitation, a small private proxy endpoint is safer than exposing a raw Slack webhook URL. If using a direct webhook, rotate it if spam appears.
 

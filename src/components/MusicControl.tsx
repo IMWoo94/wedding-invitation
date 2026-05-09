@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 
-const musicSrc = `${import.meta.env.BASE_URL}wedding-music.wav`
+const configuredMusicSrc = (import.meta.env.VITE_WEDDING_MUSIC_URL as string | undefined)?.trim()
+const musicSrc = configuredMusicSrc || `${import.meta.env.BASE_URL}wedding-music.wav`
 
 export function MusicControl() {
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -32,7 +33,7 @@ export function MusicControl() {
 
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 mx-auto flex w-full max-w-[480px] justify-end px-5 pointer-events-none">
-      <audio ref={audioRef} loop preload="auto" src={musicSrc} />
+      <audio ref={audioRef} loop preload="metadata" src={musicSrc} />
       <button
         aria-label={isPlaying ? '배경음악 끄기' : '배경음악 켜기'}
         aria-pressed={isPlaying}

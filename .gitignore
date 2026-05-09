@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Keep commercial music files out of the public static deployment.
+public/*.mp3
+public/*.m4a
+public/*.flac
+public/*.aac
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
