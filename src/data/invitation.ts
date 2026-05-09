@@ -23,8 +23,8 @@ export type AccountInfo = {
 
 export const invitation = {
   meta: {
-    title: 'Wedding Invitation',
-    description: '모바일 청첩장',
+    title: '신랑 ❤︎ 신부 결혼합니다',
+    description: '서로 다른 길을 걷던 두 사람이, 같은 방향을 바라보기로 했습니다.',
   },
   couple: {
     groom: {
@@ -62,8 +62,8 @@ export const invitation = {
     },
   },
   message: {
-    headline: '서로의 오늘이 되어, 함께 내일을 시작합니다.',
-    body: '소중한 분들을 모시고 조용하고 따뜻한 시작을 함께 나누고 싶습니다. 아직 일부 세부 정보는 준비 중이며, 확정되는 내용부터 차례로 업데이트하겠습니다.',
+    headline: '서로 다른 길을 걷던 두 사람이,\n같은 방향을 바라보기로 했습니다.',
+    body: '손으로 사람을 고치는 사람과\n코드로 앱을 고치는 사람이 만났습니다.\n\n매일이 조금씩 다르지만,\n함께라서 더 단단해지는 하루를 알게 되었습니다.\n\n그 시작을 가장 가까운 분들과 나누고 싶습니다.\n귀한 걸음으로 축복해 주시면 더없는 기쁨이겠습니다.',
   },
   gallery: {
     note: '사진은 자동 슬라이드로 천천히 넘어갑니다.',

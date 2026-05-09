@@ -1,0 +1,139 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 480 480"
+  fill="none"
+  stroke="#1d1d1f"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  role="img"
+  aria-labelledby="illustration-title illustration-desc"
+>
+  <title id="illustration-title">신랑 신부 일러스트</title>
+  <desc id="illustration-desc">
+    손그림 라인 드로잉 스타일. 왼쪽은 청진기를 두른 도수치료사,
+    오른쪽은 노트북을 든 백엔드 개발자. 두 사람 사이에 작은 하트가 떠 있다.
+  </desc>
+
+  <!-- ground line (subtle, optional baseline) -->
+  <path d="M 90 410 Q 240 420 390 410" opacity="0.3" />
+
+  <!-- ===== LEFT: Manual Therapist (도수치료사) ===== -->
+  <g id="therapist">
+    <!-- head -->
+    <circle cx="170" cy="150" r="34" />
+    <!-- hair top accent (slight wave) -->
+    <path d="M 142 138 Q 158 122 178 126 Q 195 130 200 144" />
+    <!-- neck -->
+    <path d="M 162 184 L 162 198" />
+    <path d="M 178 184 L 178 198" />
+    <!-- stethoscope (around neck, hangs down) -->
+    <path d="M 156 196 Q 150 218 162 232 L 165 252" />
+    <path d="M 184 196 Q 190 218 178 232 L 175 252" />
+    <circle cx="170" cy="258" r="6" />
+    <!-- body / scrubs top -->
+    <path d="M 138 210 Q 142 200 162 198 L 178 198 Q 198 200 202 210
+             L 212 270 Q 212 290 200 296
+             L 200 380
+             L 140 380
+             L 140 296 Q 128 290 128 270 Z" />
+    <!-- v-neck collar -->
+    <path d="M 162 198 L 170 218 L 178 198" />
+    <!-- chest pocket -->
+    <path d="M 184 232 L 200 232 L 200 250 L 184 250 Z" />
+    <!-- left arm (reaching toward center) -->
+    <path d="M 138 218 Q 120 240 130 270 Q 140 290 175 300" />
+    <!-- right arm (down, holding stethoscope cord) -->
+    <path d="M 202 218 Q 220 240 218 274 Q 216 296 208 312" />
+    <!-- hand (left, reaching toward partner) -->
+    <circle cx="180" cy="304" r="9" />
+    <!-- legs -->
+    <path d="M 158 380 L 156 444" />
+    <path d="M 182 380 L 184 444" />
+    <!-- shoes -->
+    <path d="M 144 444 Q 150 452 168 448 L 170 442" />
+    <path d="M 196 444 Q 190 452 172 448 L 170 442" />
+  </g>
+
+  <!-- ===== RIGHT: Backend Developer (백엔드 개발자) ===== -->
+  <g id="developer">
+    <!-- head -->
+    <circle cx="320" cy="150" r="34" />
+    <!-- glasses -->
+    <circle cx="310" cy="152" r="7" />
+    <circle cx="332" cy="152" r="7" />
+    <path d="M 317 152 L 325 152" />
+    <!-- hair top (short, slight tuft) -->
+    <path d="M 290 132 Q 310 116 332 122 Q 348 128 350 142" />
+    <!-- neck -->
+    <path d="M 312 184 L 312 198" />
+    <path d="M 328 184 L 328 198" />
+    <!-- body / hoodie -->
+    <path d="M 286 212 Q 290 200 312 198 L 328 198 Q 350 200 354 212
+             L 362 274 Q 362 292 350 298
+             L 350 380
+             L 290 380
+             L 290 298 Q 278 292 278 274 Z" />
+    <!-- hoodie strings -->
+    <path d="M 314 200 L 312 224" />
+    <path d="M 326 200 L 328 224" />
+    <circle cx="312" cy="226" r="1.5" fill="#1d1d1f" />
+    <circle cx="328" cy="226" r="1.5" fill="#1d1d1f" />
+    <!-- hoodie hood collar suggestion -->
+    <path d="M 300 200 Q 320 188 340 200" />
+    <!-- left arm (reaching toward center) -->
+    <path d="M 286 220 Q 270 244 278 274 Q 286 296 305 304" />
+    <!-- hand (right, reaching toward partner) -->
+    <circle cx="300" cy="304" r="9" />
+    <!-- right arm (holding laptop under) -->
+    <path d="M 354 220 Q 372 240 374 268 L 370 290" />
+    <!-- laptop tucked at side -->
+    <g id="laptop" transform="translate(338 290)">
+      <rect x="0" y="0" width="56" height="34" rx="2" />
+      <path d="M -4 34 L 60 34 L 56 38 L 0 38 Z" />
+      <!-- subtle code marks on screen -->
+      <path d="M 8 10 L 22 10" stroke-width="1.5" />
+      <path d="M 8 18 L 32 18" stroke-width="1.5" />
+      <path d="M 8 26 L 18 26" stroke-width="1.5" />
+    </g>
+    <!-- legs -->
+    <path d="M 308 380 L 306 444" />
+    <path d="M 332 380 L 334 444" />
+    <!-- shoes -->
+    <path d="M 294 444 Q 300 452 318 448 L 320 442" />
+    <path d="M 346 444 Q 340 452 322 448 L 320 442" />
+  </g>
+
+  <!-- ===== CENTER: hands meeting + heart (THE ONLY COLOR) ===== -->
+  <!-- bridging line between hands -->
+  <path d="M 188 304 Q 240 310 292 304" stroke="#1d1d1f" stroke-width="2" />
+
+  <!-- floating heart (Apple Action Blue — the single accent) -->
+  <g id="heart" transform="translate(240 250)">
+    <path
+      d="M 0 8
+         C 0 -2, -10 -8, -16 -2
+         C -22 -8, -32 -2, -32 8
+         C -32 18, -16 30, 0 42
+         C 16 30, 32 18, 32 8
+         C 32 -2, 22 -8, 16 -2
+         C 10 -8, 0 -2, 0 8 Z"
+      fill="#0066cc"
+      stroke="none"
+      transform="scale(0.55)"
+    />
+  </g>
+
+  <!-- floating code brackets (subtle, near developer) -->
+  <g id="brackets" opacity="0.55">
+    <path d="M 396 232 Q 388 240 388 252 Q 388 264 396 272" stroke-width="1.6" />
+    <path d="M 410 230 L 410 274" stroke-width="1.6" stroke-dasharray="2 4" />
+  </g>
+
+  <!-- floating sparkle near therapist (warmth motif) -->
+  <g id="sparkle" opacity="0.55">
+    <path d="M 92 240 L 92 250" stroke-width="1.6" />
+    <path d="M 87 245 L 97 245" stroke-width="1.6" />
+    <circle cx="92" cy="245" r="1.6" fill="#1d1d1f" stroke="none" />
+  </g>
+</svg>
