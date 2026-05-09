@@ -25,6 +25,7 @@ async function copyTextToClipboard(text: string) {
 export function LocationSection() {
   const { event } = invitation
   const [copyLabel, setCopyLabel] = useState('주소 복사')
+  const [isMapExpanded, setIsMapExpanded] = useState(false)
 
   const handleCopyAddress = async () => {
     try {
@@ -82,22 +83,40 @@ export function LocationSection() {
             <ActionButton href={event.mapLinks.google} target="_blank" rel="noreferrer">구글맵</ActionButton>
           </div>
         </div>
-        <div className="border-t border-[#e0e0e0] bg-white px-4 pb-5 pt-2">
-          <p className="apple-caption px-2 py-3 text-center">M스타하우스 약도</p>
-          <a
-            aria-label="M스타하우스 약도 이미지 새 창에서 보기"
-            className="block overflow-hidden rounded-[18px] border border-[#e0e0e0] bg-white"
-            href={venueMapSrc}
-            target="_blank"
-            rel="noreferrer"
+        <div className="border-t border-[#e0e0e0] bg-white p-4">
+          <button
+            aria-controls="venue-map-panel"
+            aria-expanded={isMapExpanded}
+            className="flex w-full items-center justify-between rounded-[16px] border border-[#e0e0e0] bg-[#fafafc] px-4 py-3 text-left transition active:scale-[0.99]"
+            type="button"
+            onClick={() => setIsMapExpanded((expanded) => !expanded)}
           >
-            <img
-              alt="M스타하우스 웨딩&컨벤션 약도와 교통 안내"
-              className="h-auto w-full"
-              loading="lazy"
-              src={venueMapSrc}
-            />
-          </a>
+            <span>
+              <span className="block text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f]">M스타하우스 약도</span>
+              <span className="apple-caption mt-1 block">필요하실 때 펼쳐서 확인해 주세요.</span>
+            </span>
+            <span className="text-[13px] font-medium text-[#0066cc]">
+              {isMapExpanded ? '접기' : '펼쳐 보기'}
+            </span>
+          </button>
+          {isMapExpanded ? (
+            <div id="venue-map-panel" className="mt-4">
+              <a
+                aria-label="M스타하우스 약도 이미지 새 창에서 보기"
+                className="block overflow-hidden rounded-[18px] border border-[#e0e0e0] bg-white"
+                href={venueMapSrc}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img
+                  alt="M스타하우스 웨딩&컨벤션 약도와 교통 안내"
+                  className="h-auto w-full"
+                  loading="lazy"
+                  src={venueMapSrc}
+                />
+              </a>
+            </div>
+          ) : null}
         </div>
       </div>
     </Section>

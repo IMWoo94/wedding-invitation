@@ -58,7 +58,7 @@ export const invitation = {
     venueMapImage: 'mstarhouse-map.png',
     mapLinks: {
       naver: 'https://map.naver.com/p/entry/place/19550872?c=15.00,0,0,0,dh&placePath=/home?from=map&fromPanelNum=1&additionalHeight=76&timestamp=202605091637&locale=ko&svcName=map_pcv5',
-      kakao: 'https://map.kakao.com/link/search/M%EC%8A%A4%ED%83%80%ED%95%98%EC%9A%B0%EC%8A%A4%EC%9B%A8%EB%94%A9%26%EC%BB%A8%EB%B2%A4%EC%85%98',
+      kakao: 'https://map.kakao.com/link/search/M%EC%8A%A4%ED%83%80%ED%95%98%EC%9A%B0%EC%8A%A4%EC%9B%A8%EB%94%A9',
       google: 'https://www.google.com/maps/search/?api=1&query=M%EC%8A%A4%ED%83%80%ED%95%98%EC%9A%B0%EC%8A%A4%EC%9B%A8%EB%94%A9%26%EC%BB%A8%EB%B2%A4%EC%85%98%20%EB%8C%80%EA%B5%AC%20%EB%8F%99%EA%B5%AC%20%EB%8F%99%EC%B4%8C%EB%A1%9C%20316',
     },
   },

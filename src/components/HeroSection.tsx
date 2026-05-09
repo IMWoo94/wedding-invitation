@@ -28,7 +28,11 @@ export function HeroSection() {
           <span className="mx-2 text-[#7a7a7a]">&</span>
           {invitation.couple.groom.name}
         </h1>
-        <p className="apple-body mb-8 whitespace-pre-line">{invitation.message.headline}</p>
+        <p className="apple-body mb-8 whitespace-pre-line text-[16px] text-[#555555]">
+          {invitation.event.venueName}
+          {'\n'}
+          {invitation.event.venueHall}
+        </p>
         <div className="flex flex-wrap justify-center gap-3">
           <ActionButton href="#location" variant="primary">위치 보기</ActionButton>
           <ActionButton href="#contact">연락처</ActionButton>
