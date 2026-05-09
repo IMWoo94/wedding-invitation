@@ -1,7 +1,7 @@
 import { invitation } from '../data/invitation'
 import { ActionButton } from './ActionButton'
 
-const heroImageSrc = `${import.meta.env.BASE_URL}wedding_image.png`
+const heroImageSrc = `${import.meta.env.BASE_URL}wedding_og.png`
 
 export function HeroSection() {
   return (
