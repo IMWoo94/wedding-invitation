@@ -24,9 +24,9 @@ export function HeroSection() {
       <div className="mx-auto max-w-[360px] pb-10">
         <p className="apple-eyebrow mb-4">{invitation.event.dateText} · {invitation.event.timeText}</p>
         <h1 className="apple-title mb-5">
-          {invitation.couple.groom.name}
-          <span className="mx-2 text-[#7a7a7a]">&</span>
           {invitation.couple.bride.name}
+          <span className="mx-2 text-[#7a7a7a]">&</span>
+          {invitation.couple.groom.name}
         </h1>
         <p className="apple-body mb-8 whitespace-pre-line">{invitation.message.headline}</p>
         <div className="flex flex-wrap justify-center gap-3">
