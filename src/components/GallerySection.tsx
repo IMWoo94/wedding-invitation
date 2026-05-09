@@ -95,7 +95,7 @@ export function GallerySection() {
   }, [isModalOpen, showNextPhoto, showPreviousPhoto])
 
   return (
-    <Section eyebrow="Gallery" title="사진첩" centered>
+    <Section id="gallery" eyebrow="Gallery" title="사진첩" centered>
       <div className="overflow-hidden rounded-[32px] bg-[#f5f5f7] shadow-[0_24px_70px_rgba(0,0,0,0.1)]">
         <button
           aria-label={`${activeIndex + 1}번째 사진 크게 보기`}

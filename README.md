@@ -34,7 +34,7 @@ For GitHub Pages deployment, add the same value as the repository secret `VITE_R
 
 `public/*.mp3`, `public/*.m4a`, `public/*.flac`, and `public/*.aac` are ignored so commercial music files are not accidentally committed or deployed as static public files.
 
-The music button reads `VITE_WEDDING_MUSIC_URL` when it is provided. If it is empty, it falls back to `public/wedding-music.wav`.
+The music button reads `VITE_WEDDING_MUSIC_URL` when it is provided. If it is empty, it falls back to the approved short highlight at `public/music/lee-mujin-highlight-30s.mp3`.
 
 Important: any audio URL used directly by a static GitHub Pages site can still be discovered in the browser network panel or built JavaScript. For non-public/commercial music, prefer not to deploy the full file publicly. Safer options are:
 - use a licensed/public streaming embed instead of direct file playback,

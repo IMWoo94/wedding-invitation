@@ -37,9 +37,17 @@ export function ShareSection() {
 
   return (
     <Section centered muted>
-      <ActionButton aria-label="초대장 링크 복사하기" onClick={share} variant="primary">
-        {shareLabel}
-      </ActionButton>
+      <div className="mx-auto flex max-w-[360px] flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+        <ActionButton href="#location" aria-label="위치 보기" className="w-full sm:w-auto" variant="secondary">
+          위치 보기
+        </ActionButton>
+        <ActionButton href="#gallery" aria-label="갤러리 보기" className="w-full sm:w-auto" variant="secondary">
+          갤러리 보기
+        </ActionButton>
+        <ActionButton aria-label="초대장 링크 복사하기" className="w-full sm:w-auto" onClick={share} variant="primary">
+          {shareLabel}
+        </ActionButton>
+      </div>
     </Section>
   )
 }
