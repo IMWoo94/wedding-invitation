@@ -192,6 +192,29 @@
   }
 }
 
+.rsvp-input {
+  width: 100%;
+  border: 1px solid var(--apple-hairline);
+  border-radius: 16px;
+  background: #ffffff;
+  color: var(--apple-ink);
+  font-family: var(--font-text);
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  outline: none;
+  padding: 14px 16px;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.rsvp-input:focus {
+  border-color: rgba(0, 102, 204, 0.58);
+  box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.12);
+}
+
+.rsvp-input::placeholder {
+  color: #a1a1a6;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .wedding-entrance::before,
   .wedding-petals,

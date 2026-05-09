@@ -5,6 +5,7 @@ import { HeroSection } from './components/HeroSection'
 import { LocationSection } from './components/LocationSection'
 import { MessageSection } from './components/MessageSection'
 import { MusicControl } from './components/MusicControl'
+import { RsvpSection } from './components/RsvpSection'
 import { ShareSection } from './components/ShareSection'
 
 function App() {
@@ -12,8 +13,9 @@ function App() {
     <main className="apple-frame">
       <HeroSection />
       <MessageSection />
-      <LocationSection />
       <GallerySection />
+      <LocationSection />
+      <RsvpSection />
       <ContactSection />
       <AccountSection />
       <ShareSection />

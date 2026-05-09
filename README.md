@@ -16,6 +16,21 @@ npm run dev
 npm run build
 ```
 
+## RSVP with Slack
+
+The invitation can collect visit plans with only name and guest count.
+Submissions are sent to Slack channel `C0B2PFXVAPQ` through a Slack Incoming Webhook-compatible URL.
+
+Set the webhook URL before build, for example in `.env.local`:
+
+```bash
+VITE_RSVP_SLACK_WEBHOOK_URL=https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK
+```
+
+For GitHub Pages deployment, add the same value as the repository secret `VITE_RSVP_SLACK_WEBHOOK_URL`.
+
+Note: Vite variables are embedded into the static frontend bundle. For a public invitation, a small private proxy endpoint is safer than exposing a raw Slack webhook URL. If using a direct webhook, rotate it if spam appears.
+
 ## Deployment
 
 This project is configured for GitHub Pages under:
