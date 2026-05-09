@@ -16,6 +16,13 @@ npm run dev
 npm run build
 ```
 
+## Project handoff / release notes
+
+- Current handoff: [`docs/PROJECT_HANDOFF.md`](docs/PROJECT_HANDOFF.md)
+- Versioned release notes: [`docs/RELEASE_NOTES.md`](docs/RELEASE_NOTES.md)
+
+Use these files as the first reference before future edits, especially when adding contact or account information.
+
 ## RSVP with Slack
 
 The invitation can collect visit plans with only name and guest count.
