@@ -7,6 +7,7 @@ export type SensitiveText = {
 
 export type Person = {
   name: string
+  fullName: string
   role: 'groom' | 'bride'
   phone: SensitiveText
 }
@@ -30,6 +31,7 @@ export const invitation = {
     groom: {
       role: 'groom',
       name: '상민',
+      fullName: '이상민',
       phone: {
         enabled: false,
         label: '신랑 연락처',
@@ -40,6 +42,7 @@ export const invitation = {
     bride: {
       role: 'bride',
       name: '누리',
+      fullName: '백누리',
       phone: {
         enabled: false,
         label: '신부 연락처',

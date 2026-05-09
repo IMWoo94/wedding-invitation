@@ -4,6 +4,7 @@ import { GallerySection } from './components/GallerySection'
 import { HeroSection } from './components/HeroSection'
 import { LocationSection } from './components/LocationSection'
 import { MessageSection } from './components/MessageSection'
+import { MusicControl } from './components/MusicControl'
 import { ShareSection } from './components/ShareSection'
 
 function App() {
@@ -16,9 +17,11 @@ function App() {
       <ContactSection />
       <AccountSection />
       <ShareSection />
-      <footer className="px-6 py-10 text-center text-[12px] leading-relaxed text-[#7a7a7a]">
-        Built as a private-first static invitation. Sensitive values stay blank until intentionally opened.
+      <footer className="px-6 pb-24 pt-10 text-center text-[12px] leading-relaxed text-[#7a7a7a]">
+        Made in Sangmin with love.<br />
+        © 2026 Sangmin. All rights reserved.
       </footer>
+      <MusicControl />
     </main>
   )
 }

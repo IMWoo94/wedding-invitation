@@ -7,16 +7,13 @@ export function MessageSection() {
       <p className="apple-body mx-auto max-w-[300px] whitespace-pre-line leading-[1.9] tracking-[-0.03em]">
         {invitation.message.body}
       </p>
-      <div className="mt-10 grid grid-cols-[1fr_auto_1fr] items-center gap-4 text-center">
-        <div>
-          <p className="apple-caption mb-1">Groom</p>
-          <p className="text-xl font-semibold tracking-[-0.03em]">{invitation.couple.groom.name}</p>
-        </div>
-        <span className="text-[#7a7a7a]">|</span>
-        <div>
-          <p className="apple-caption mb-1">Bride</p>
-          <p className="text-xl font-semibold tracking-[-0.03em]">{invitation.couple.bride.name}</p>
-        </div>
+      <div className="mt-10 grid gap-3 text-center">
+        <p className="text-lg font-semibold tracking-[-0.03em] text-[#1d1d1f]">
+          신부 : {invitation.couple.bride.fullName}
+        </p>
+        <p className="text-lg font-semibold tracking-[-0.03em] text-[#1d1d1f]">
+          신랑 : {invitation.couple.groom.fullName}
+        </p>
       </div>
     </Section>
   )

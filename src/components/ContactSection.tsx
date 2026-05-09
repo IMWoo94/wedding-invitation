@@ -12,7 +12,7 @@ export function ContactSection() {
           <div className="apple-card flex items-center justify-between gap-4 p-5" key={person.role}>
             <div>
               <p className="apple-caption">{person.phone.label}</p>
-              <p className="mt-1 text-lg font-semibold tracking-[-0.03em]">{person.name}</p>
+              <p className="mt-1 text-lg font-semibold tracking-[-0.03em]">{person.fullName}</p>
               <p className="apple-caption mt-1">{person.phone.enabled ? person.phone.value : person.phone.placeholder}</p>
             </div>
             <ActionButton
