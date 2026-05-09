@@ -4,10 +4,10 @@ import { Section } from './Section'
 
 export function AccountSection() {
   return (
-    <Section eyebrow="Account" title="마음 전하실 곳">
+    <Section eyebrow="Account" title="마음 전하실 곳" centered>
       <div className="grid gap-3">
         {invitation.accounts.map((account) => (
-          <div className="apple-card p-5" key={account.label}>
+          <div className="apple-card p-5 text-left" key={account.label}>
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="apple-caption">{account.label}</p>

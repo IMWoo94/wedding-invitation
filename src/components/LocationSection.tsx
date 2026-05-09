@@ -39,8 +39,8 @@ export function LocationSection() {
   }
 
   return (
-    <Section id="location" eyebrow="Location" title="오시는 길" muted>
-      <div className="apple-card overflow-hidden">
+    <Section id="location" eyebrow="Location" title="오시는 길" muted centered>
+      <div className="apple-card overflow-hidden text-left">
         <div className="flex h-56 items-center justify-center bg-[#272729] px-6 text-white">
           <div className="text-center">
             <p className="text-sm uppercase tracking-[0.28em] text-[#cccccc]">Wedding Venue</p>

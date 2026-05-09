@@ -36,7 +36,7 @@ export function ShareSection() {
   }
 
   return (
-    <Section eyebrow="Share" title="초대장 공유" centered muted>
+    <Section centered muted>
       <ActionButton aria-label="초대장 링크 복사하기" onClick={share} variant="primary">
         {shareLabel}
       </ActionButton>

@@ -6,10 +6,10 @@ export function ContactSection() {
   const people = [invitation.couple.groom, invitation.couple.bride]
 
   return (
-    <Section id="contact" eyebrow="Contact" title="연락처" muted>
+    <Section id="contact" eyebrow="Contact" title="연락처" muted centered>
       <div className="grid gap-3">
         {people.map((person) => (
-          <div className="apple-card flex items-center justify-between gap-4 p-5" key={person.role}>
+          <div className="apple-card flex items-center justify-between gap-4 p-5 text-left" key={person.role}>
             <div>
               <p className="apple-caption">{person.phone.label}</p>
               <p className="mt-1 text-lg font-semibold tracking-[-0.03em]">{person.fullName}</p>

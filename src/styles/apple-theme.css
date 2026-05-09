@@ -34,7 +34,14 @@
 }
 
 .apple-section {
+  position: relative;
+  overflow: hidden;
   padding: 72px 24px;
+}
+
+.section-content {
+  position: relative;
+  z-index: 1;
 }
 
 .apple-section-muted {
@@ -170,6 +177,35 @@
   animation-duration: 11200ms;
 }
 
+.section-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.62;
+  background-image:
+    radial-gradient(ellipse at center, rgba(255, 167, 187, 0.42) 0 32%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 224, 196, 0.40) 0 32%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 195, 210, 0.34) 0 32%, transparent 36%);
+  background-size: 13px 8px, 15px 9px, 10px 7px;
+  background-position: 12% -8%, 70% -10%, 92% -6%;
+  background-repeat: no-repeat;
+  animation: section-petals-fall 12500ms ease-in-out infinite;
+  filter: drop-shadow(0 2px 3px rgba(188, 119, 132, 0.10));
+}
+
+.section-petals::before {
+  content: '';
+  position: absolute;
+  inset: -10% 0 0;
+  background-image:
+    radial-gradient(ellipse at center, rgba(255, 180, 198, 0.32) 0 32%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 232, 210, 0.34) 0 32%, transparent 36%);
+  background-size: 11px 7px, 14px 9px;
+  background-position: 28% -8%, 82% -12%;
+  background-repeat: no-repeat;
+  animation: section-petals-fall-soft 14800ms ease-in-out 2600ms infinite;
+}
+
 .hero-illustration {
   position: relative;
   z-index: 1;
@@ -242,6 +278,44 @@
   }
 }
 
+@keyframes section-petals-fall {
+  0% {
+    opacity: 0;
+    transform: translateX(-4px) rotate(0deg);
+    background-position: 12% -8%, 70% -10%, 92% -6%;
+  }
+  18% {
+    opacity: 0.62;
+  }
+  78% {
+    opacity: 0.42;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(8px) rotate(5deg);
+    background-position: 18% 92%, 62% 78%, 88% 88%;
+  }
+}
+
+@keyframes section-petals-fall-soft {
+  0% {
+    opacity: 0;
+    transform: translateX(5px) rotate(-2deg);
+    background-position: 28% -8%, 82% -12%;
+  }
+  20% {
+    opacity: 0.42;
+  }
+  76% {
+    opacity: 0.30;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-8px) rotate(6deg);
+    background-position: 24% 82%, 76% 94%;
+  }
+}
+
 .rsvp-input {
   width: 100%;
   border: 1px solid var(--apple-hairline);
@@ -265,9 +339,61 @@
   color: #a1a1a6;
 }
 
+.rsvp-counter {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto 44px;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--apple-hairline);
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 8px;
+}
+
+.rsvp-counter-button {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--apple-surface-pearl);
+  color: var(--apple-blue);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1;
+  transition: transform 160ms ease, opacity 160ms ease, background-color 160ms ease;
+}
+
+.rsvp-counter-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.rsvp-counter-button:not(:disabled):active {
+  transform: scale(0.94);
+}
+
+.rsvp-counter-input {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--apple-ink);
+  font-family: var(--font-text);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  outline: none;
+  text-align: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .section-petals,
+  .section-petals::before,
   .wedding-entrance::before,
   .wedding-petals,
+  .wedding-petals::before,
+  .wedding-petals::after,
   .hero-illustration,
   .hero-copy {
     animation: none;
@@ -275,7 +401,8 @@
     transform: none;
   }
 
-  .wedding-petals {
+  .wedding-petals,
+  .section-petals {
     display: none;
   }
 }

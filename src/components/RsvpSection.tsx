@@ -16,6 +16,10 @@ export function RsvpSection() {
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
 
   const trimmedName = guestName.trim()
+  const parsedGuestCount = Number(guestCount)
+  const normalizedGuestCount = Number.isFinite(parsedGuestCount) && parsedGuestCount > 0
+    ? Math.floor(parsedGuestCount)
+    : 1
   const isSubmitting = submitState === 'submitting'
   const statusMessage = useMemo(() => {
     if (submitState === 'success') {
@@ -47,7 +51,6 @@ export function RsvpSection() {
       return
     }
 
-    const count = Number(guestCount)
     const submittedAt = new Date().toLocaleString('ko-KR', {
       dateStyle: 'medium',
       timeStyle: 'short',
@@ -55,7 +58,7 @@ export function RsvpSection() {
     const text = [
       ':envelope_with_arrow: 참석 의사가 도착했습니다.',
       `• 이름: ${trimmedName}`,
-      `• 인원수: ${Number.isFinite(count) ? count : 1}명`,
+      `• 인원수: ${normalizedGuestCount}명`,
       `• 예식일: ${invitation.event.dateText} ${invitation.event.timeText}`,
       `• 접수일시: ${submittedAt}`,
     ].join('\n')
@@ -87,7 +90,9 @@ export function RsvpSection() {
       <div className="apple-card overflow-hidden text-left shadow-[0_18px_52px_rgba(0,0,0,0.07)]">
         <div className="border-b border-[#e8e8ed] bg-[#fafafc] px-6 py-5 text-center">
           <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f]">함께하실 수 있다면 편히 알려 주세요</p>
-          <p className="apple-caption mt-2 leading-relaxed">준비에 참고하려는 작은 부탁입니다. 부담 없이 가능한 인원만 남겨 주세요.</p>
+          <p className="apple-caption mt-3 whitespace-pre-line leading-[1.75]">
+            {`자리를 정성껏 준비하기 위해\n가능하신 인원만 살짝 알려 주세요.\n부담 없이 남겨 주셔도 괜찮습니다.`}
+          </p>
         </div>
 
         <div className="p-6">
@@ -120,20 +125,46 @@ export function RsvpSection() {
                 />
               </label>
 
-              <label className="grid gap-2">
+              <div className="grid gap-2">
                 <span className="apple-caption font-semibold text-[#1d1d1f]">인원수</span>
-                <select
-                  className="rsvp-input"
-                  onChange={(event) => setGuestCount(event.target.value)}
-                  value={guestCount}
-                >
-                  {[1, 2, 3, 4, 5, 6].map((count) => (
-                    <option key={count} value={count}>
-                      {count}명
-                    </option>
-                  ))}
-                </select>
-              </label>
+                <div className="rsvp-counter" aria-label="참석 인원수 입력">
+                  <button
+                    aria-label="인원수 줄이기"
+                    className="rsvp-counter-button"
+                    disabled={normalizedGuestCount <= 1}
+                    onClick={() => setGuestCount(String(Math.max(1, normalizedGuestCount - 1)))}
+                    type="button"
+                  >
+                    −
+                  </button>
+                  <label className="sr-only" htmlFor="guest-count">참석 인원수</label>
+                  <input
+                    id="guest-count"
+                    className="rsvp-counter-input"
+                    inputMode="numeric"
+                    min="1"
+                    onBlur={() => setGuestCount(String(normalizedGuestCount))}
+                    onChange={(event) => {
+                      const value = event.target.value.replace(/[^0-9]/g, '')
+                      setGuestCount(value)
+                    }}
+                    pattern="[0-9]*"
+                    placeholder="1"
+                    type="text"
+                    value={guestCount}
+                  />
+                  <span className="text-[15px] font-semibold text-[#1d1d1f]">명</span>
+                  <button
+                    aria-label="인원수 늘리기"
+                    className="rsvp-counter-button"
+                    onClick={() => setGuestCount(String(normalizedGuestCount + 1))}
+                    type="button"
+                  >
+                    +
+                  </button>
+                </div>
+                <p className="apple-caption">버튼으로 조정하거나 숫자를 직접 입력할 수 있습니다.</p>
+              </div>
 
               <button
                 aria-label="참석 의사 제출"
