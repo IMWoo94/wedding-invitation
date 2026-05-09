@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+@import './styles/apple-theme.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--apple-canvas-parchment);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100svh;
+  color: var(--apple-ink);
+  background:
+    linear-gradient(180deg, rgba(245, 245, 247, 0.96), rgba(255, 255, 255, 1) 36%),
+    var(--apple-canvas);
+  font-family: var(--font-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+#root {
+  min-height: 100svh;
+}
