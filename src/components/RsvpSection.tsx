@@ -19,7 +19,7 @@ export function RsvpSection() {
   const isSubmitting = submitState === 'submitting'
   const statusMessage = useMemo(() => {
     if (submitState === 'success') {
-      return '방문 예정이 전달되었습니다. 귀한 걸음으로 함께해 주셔서 감사합니다.'
+      return '소중한 마음이 전달되었습니다. 함께해 주시는 그 마음만으로도 깊이 감사드립니다.'
     }
 
     if (submitState === 'error') {
@@ -27,7 +27,7 @@ export function RsvpSection() {
     }
 
     if (submitState === 'not-ready') {
-      return '방문 예정 접수용 Slack Webhook URL을 연결한 뒤 제출할 수 있습니다.'
+      return '참석 의사 전달용 Slack Webhook URL을 연결한 뒤 제출할 수 있습니다.'
     }
 
     return ''
@@ -53,7 +53,7 @@ export function RsvpSection() {
       timeStyle: 'short',
     })
     const text = [
-      ':envelope_with_arrow: 방문 예정 신청이 도착했습니다.',
+      ':envelope_with_arrow: 참석 의사가 도착했습니다.',
       `• 이름: ${trimmedName}`,
       `• 인원수: ${Number.isFinite(count) ? count : 1}명`,
       `• 예식일: ${invitation.event.dateText} ${invitation.event.timeText}`,
@@ -83,11 +83,11 @@ export function RsvpSection() {
   }
 
   return (
-    <Section id="rsvp" eyebrow="RSVP" title="방문 예정" centered>
+    <Section id="rsvp" eyebrow="RSVP" title="참석 의사 전하기" centered>
       <div className="apple-card overflow-hidden text-left shadow-[0_18px_52px_rgba(0,0,0,0.07)]">
         <div className="border-b border-[#e8e8ed] bg-[#fafafc] px-6 py-5 text-center">
-          <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f]">참석해 주실 분들을 위해 준비하겠습니다</p>
-          <p className="apple-caption mt-2">이름과 방문 인원수만 남겨 주세요.</p>
+          <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f]">함께하실 수 있다면 편히 알려 주세요</p>
+          <p className="apple-caption mt-2 leading-relaxed">준비에 참고하려는 작은 부탁입니다. 부담 없이 가능한 인원만 남겨 주세요.</p>
         </div>
 
         <div className="p-6">
@@ -101,7 +101,7 @@ export function RsvpSection() {
             }}
             variant="primary"
           >
-            {isFormOpen ? '방문 예정 입력 닫기' : '방문 예정 전달하기'}
+            {isFormOpen ? '입력 닫기' : '참석 의사 남기기'}
           </ActionButton>
 
           {isFormOpen ? (
@@ -136,7 +136,7 @@ export function RsvpSection() {
               </label>
 
               <button
-                aria-label="방문 예정 제출"
+                aria-label="참석 의사 제출"
                 className="apple-pill apple-pill-primary mt-1 w-full justify-center py-4 text-[16px] disabled:cursor-not-allowed disabled:opacity-55"
                 disabled={isSubmitting || !trimmedName}
                 type="submit"

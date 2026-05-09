@@ -135,13 +135,39 @@
   pointer-events: none;
   opacity: 0;
   background-image:
-    radial-gradient(ellipse at center, rgba(255, 182, 193, 0.72) 0 34%, transparent 36%),
-    radial-gradient(ellipse at center, rgba(255, 214, 224, 0.62) 0 34%, transparent 36%),
-    radial-gradient(ellipse at center, rgba(255, 239, 214, 0.70) 0 34%, transparent 36%);
-  background-size: 14px 9px, 10px 7px, 12px 8px;
-  background-position: 14% -8%, 74% -10%, 47% -14%;
+    radial-gradient(ellipse at center, rgba(255, 151, 172, 0.82) 0 33%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 190, 205, 0.78) 0 33%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 222, 183, 0.78) 0 33%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 171, 189, 0.70) 0 33%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 232, 206, 0.72) 0 33%, transparent 36%);
+  background-size: 18px 11px, 14px 9px, 16px 10px, 12px 8px, 15px 10px;
+  background-position: 10% -8%, 34% -12%, 58% -10%, 80% -14%, 92% -8%;
   background-repeat: no-repeat;
-  animation: petals-fall 5200ms ease-in-out 450ms forwards;
+  animation: petals-fall 8200ms ease-in-out 300ms infinite;
+  filter: drop-shadow(0 2px 4px rgba(188, 119, 132, 0.16));
+}
+
+.wedding-petals::before,
+.wedding-petals::after {
+  content: '';
+  position: absolute;
+  inset: -12% 0 0;
+  background-image:
+    radial-gradient(ellipse at center, rgba(255, 166, 186, 0.72) 0 33%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 226, 202, 0.68) 0 33%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 198, 212, 0.70) 0 33%, transparent 36%);
+  background-size: 13px 8px, 16px 10px, 11px 7px;
+  background-position: 20% -10%, 68% -12%, 86% -8%;
+  background-repeat: no-repeat;
+  animation: petals-fall-soft 9600ms ease-in-out 1600ms infinite;
+}
+
+.wedding-petals::after {
+  inset: -18% 0 0;
+  opacity: 0.72;
+  transform: scaleX(-1);
+  animation-delay: 3600ms;
+  animation-duration: 11200ms;
 }
 
 .hero-illustration {
@@ -181,14 +207,38 @@
 @keyframes petals-fall {
   0% {
     opacity: 0;
-    background-position: 14% -8%, 74% -10%, 47% -14%;
+    transform: translateX(-4px) rotate(0deg);
+    background-position: 10% -8%, 34% -12%, 58% -10%, 80% -14%, 92% -8%;
   }
-  14% {
-    opacity: 1;
+  16% {
+    opacity: 0.92;
+  }
+  72% {
+    opacity: 0.78;
   }
   100% {
     opacity: 0;
-    background-position: 22% 62%, 66% 70%, 54% 76%;
+    transform: translateX(8px) rotate(6deg);
+    background-position: 18% 82%, 28% 66%, 64% 86%, 74% 72%, 88% 92%;
+  }
+}
+
+@keyframes petals-fall-soft {
+  0% {
+    opacity: 0;
+    transform: translateX(6px) rotate(-2deg);
+    background-position: 20% -10%, 68% -12%, 86% -8%;
+  }
+  18% {
+    opacity: 0.72;
+  }
+  76% {
+    opacity: 0.58;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-10px) rotate(7deg);
+    background-position: 26% 78%, 62% 88%, 82% 70%;
   }
 }
 

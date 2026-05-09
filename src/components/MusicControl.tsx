@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 
 const configuredMusicSrc = (import.meta.env.VITE_WEDDING_MUSIC_URL as string | undefined)?.trim()
-const musicSrc = configuredMusicSrc || `${import.meta.env.BASE_URL}wedding-music.wav`
+const musicSrc = configuredMusicSrc || `${import.meta.env.BASE_URL}music/lee-mujin-highlight-30s.mp3`
 
 export function MusicControl() {
   const audioRef = useRef<HTMLAudioElement>(null)

@@ -12,11 +12,13 @@ dist
 dist-ssr
 *.local
 
-# Keep commercial music files out of the public static deployment.
+# Keep full-length/local commercial music files out of the public static deployment.
+# Short approved highlights can live under public/music/.
 public/*.mp3
 public/*.m4a
 public/*.flac
 public/*.aac
+local-audio/
 
 # Editor directories and files
 .vscode/*
