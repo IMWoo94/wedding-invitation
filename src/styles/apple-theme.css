@@ -113,3 +113,96 @@
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.86);
 }
+
+.wedding-entrance::before {
+  content: '';
+  position: absolute;
+  inset: -18% -26% auto;
+  height: 430px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 52%, rgba(255, 230, 235, 0.68), transparent 34%),
+    radial-gradient(circle at 28% 30%, rgba(255, 245, 220, 0.58), transparent 28%),
+    radial-gradient(circle at 72% 28%, rgba(238, 246, 255, 0.64), transparent 30%);
+  filter: blur(2px);
+  opacity: 0;
+  animation: wedding-glow-in 1200ms ease-out 120ms forwards;
+}
+
+.wedding-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    radial-gradient(ellipse at center, rgba(255, 182, 193, 0.72) 0 34%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 214, 224, 0.62) 0 34%, transparent 36%),
+    radial-gradient(ellipse at center, rgba(255, 239, 214, 0.70) 0 34%, transparent 36%);
+  background-size: 14px 9px, 10px 7px, 12px 8px;
+  background-position: 14% -8%, 74% -10%, 47% -14%;
+  background-repeat: no-repeat;
+  animation: petals-fall 5200ms ease-in-out 450ms forwards;
+}
+
+.hero-illustration {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  animation: hero-rise 900ms cubic-bezier(0.16, 1, 0.3, 1) 220ms forwards;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: hero-rise 840ms cubic-bezier(0.16, 1, 0.3, 1) 520ms forwards;
+}
+
+@keyframes wedding-glow-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes petals-fall {
+  0% {
+    opacity: 0;
+    background-position: 14% -8%, 74% -10%, 47% -14%;
+  }
+  14% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    background-position: 22% 62%, 66% 70%, 54% 76%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wedding-entrance::before,
+  .wedding-petals,
+  .hero-illustration,
+  .hero-copy {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .wedding-petals {
+    display: none;
+  }
+}
