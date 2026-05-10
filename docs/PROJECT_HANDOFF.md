@@ -245,6 +245,25 @@ https://imwoo94.github.io/wedding-invitation/
   - `wedding-music.wav`
   - `wedding_image.png`
 
+## 영상 작업 메모
+
+청첩장과 이어지는 결혼식 영상 작업 문서는 아래에 있다.
+
+- `docs/VIDEO_SCENARIO_DRAFT.md`: 우연한 만남, 10년 연애, 대구/서울/대전·세종/서울 흐름을 담은 시나리오 초안
+- `docs/VIDEO_PRODUCTION_PLAN.md`: 10초 캐릭터/무드 테스트부터 30초, 1분, 2분 버전까지 확장하는 제작 계획
+- `docs/VIDEO_GEMINI_FLOW_PROMPTS.md`: 첨부 사진 기반 Gemini / Flow용 캐릭터 레퍼런스 및 10초 영상 프롬프트
+
+현재 영상 방향:
+
+- 먼저 10초 버전으로 캐릭터 디자인과 동화풍 3D 애니메이션 무드를 확인한다.
+- 캐릭터는 실제 얼굴과 꽤 닮게 만들되, 과한 실사/언캐니 느낌은 피한다.
+- 화면 비율은 결혼식장용 16:9와 릴스/모바일용 9:16을 모두 고려한다.
+- 의상은 초반 캐주얼 연애룩, 마지막 장면만 웨딩 느낌으로 간다.
+- 제작 도구는 Gemini / Flow를 우선 사용한다.
+- 결과물이 적합하면 30초 버전으로 확장한다.
+- 더 나아가 1분 또는 2분 식전/식중 영상까지 확장 가능하다.
+- 직접적인 "Disney/Pixar style" 표현은 피하고, "따뜻한 동화풍 3D 애니메이션", "original family animation film mood" 같은 안전한 표현을 사용한다.
+
 ## 다음 작업 후보
 
 현재는 즉시 처리할 필수 이슈 없음.
