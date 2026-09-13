@@ -89,9 +89,8 @@ export function AccountSection() {
                       >
                         <div>
                           <p className="apple-caption">{account.relation}</p>
-                          <p className="mt-1 font-semibold tracking-[-0.02em]">
-                            {account.bank} {account.holder}
-                          </p>
+                          <p className="mt-1 font-semibold tracking-[-0.02em]">{account.holder}</p>
+                          <p className="apple-body mt-0.5 text-[15px]">{account.bank}</p>
                           <p className="apple-body mt-0.5 text-[15px]">{account.number}</p>
                         </div>
                         <div className="flex shrink-0 flex-col items-stretch gap-2">
