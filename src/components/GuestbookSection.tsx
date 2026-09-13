@@ -1,14 +1,13 @@
 import { useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ActionButton } from './ActionButton'
-import { Section } from './Section'
 
 const slackWebhookUrl = import.meta.env.VITE_RSVP_SLACK_WEBHOOK_URL as string | undefined
 const slackChannel = 'C0B2PFXVAPQ'
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error' | 'not-ready'
 
-export function GuestbookSection() {
+export function GuestbookCard() {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [guestName, setGuestName] = useState('')
   const [message, setMessage] = useState('')
@@ -81,8 +80,7 @@ export function GuestbookSection() {
   }
 
   return (
-    <Section eyebrow="Guestbook" title="축하 메시지" muted centered>
-      <div className="apple-card overflow-hidden text-left shadow-[0_18px_52px_rgba(0,0,0,0.07)]">
+    <div className="apple-card overflow-hidden text-left shadow-[0_18px_52px_rgba(0,0,0,0.07)]">
         <div className="border-b border-[#e8e8ed] bg-[#fafafc] px-6 py-5 text-center dark:border-[#3a3a3c] dark:bg-[#232325]">
           <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">따뜻한 한마디를 남겨 주세요</p>
           <p className="apple-caption mt-3 whitespace-pre-line leading-[1.75]">
@@ -158,7 +156,6 @@ export function GuestbookSection() {
             </p>
           ) : null}
         </div>
-      </div>
-    </Section>
+    </div>
   )
 }

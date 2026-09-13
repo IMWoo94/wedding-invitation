@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import { invitation } from '../data/invitation'
 import { ActionButton } from './ActionButton'
-import { Section } from './Section'
 
 const rsvpSlackWebhookUrl = import.meta.env.VITE_RSVP_SLACK_WEBHOOK_URL as string | undefined
 const rsvpSlackChannel = 'C0B2PFXVAPQ'
@@ -23,7 +22,7 @@ const mealOptions: Array<{ value: Meal; label: string }> = [
   { value: 'undecided', label: '미정' },
 ]
 
-function segmentClass(selected: boolean) {
+export function segmentClass(selected: boolean) {
   return `rounded-full border px-4 py-2.5 text-[14px] font-medium transition active:scale-[0.98] ${
     selected
       ? 'border-transparent bg-[#0066cc] text-white dark:bg-[#0a84ff]'
@@ -31,7 +30,7 @@ function segmentClass(selected: boolean) {
   }`
 }
 
-export function RsvpSection() {
+export function RsvpCard() {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [guestName, setGuestName] = useState('')
   const [guestCount, setGuestCount] = useState('1')
@@ -116,8 +115,7 @@ export function RsvpSection() {
   }
 
   return (
-    <Section id="rsvp" eyebrow="RSVP" title="참석 의사 전하기" centered>
-      <div className="apple-card overflow-hidden text-left shadow-[0_18px_52px_rgba(0,0,0,0.07)]">
+    <div className="apple-card overflow-hidden text-left shadow-[0_18px_52px_rgba(0,0,0,0.07)]">
         <div className="border-b border-[#e8e8ed] bg-[#fafafc] px-6 py-5 text-center dark:border-[#3a3a3c] dark:bg-[#232325]">
           <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">함께하실 수 있다면 편히 알려 주세요</p>
           <p className="apple-caption mt-3 whitespace-pre-line leading-[1.75]">
@@ -256,7 +254,6 @@ export function RsvpSection() {
             </p>
           ) : null}
         </div>
-      </div>
-    </Section>
+    </div>
   )
 }
