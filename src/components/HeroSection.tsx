@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import heroPhoto from '../assets/gallery/photo-7.jpeg'
 import { invitation } from '../data/invitation'
 import { ActionButton } from './ActionButton'
@@ -46,6 +47,19 @@ function getDdayLabel() {
 }
 
 export function HeroSection() {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+
+  // Any click after the menu opens (an option, the pill again, or elsewhere) closes it.
+  useEffect(() => {
+    if (!isCalendarOpen) {
+      return
+    }
+
+    const close = () => setIsCalendarOpen(false)
+    document.addEventListener('click', close)
+    return () => document.removeEventListener('click', close)
+  }, [isCalendarOpen])
+
   return (
     <header className="wedding-entrance relative flex min-h-[760px] flex-col justify-between overflow-hidden bg-white px-6 py-8 text-center dark:bg-[#1c1c1e]">
       <div className="wedding-petals" aria-hidden="true" />
@@ -86,8 +100,25 @@ export function HeroSection() {
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <ActionButton href="#location" variant="primary">위치 보기</ActionButton>
-          <ActionButton href={deviceCalendar.href}>{deviceCalendar.label}</ActionButton>
-          <ActionButton href={googleCalendarUrl} rel="noreferrer" target="_blank">Google 캘린더</ActionButton>
+          <div className="relative">
+            <ActionButton
+              aria-controls="calendar-menu"
+              aria-expanded={isCalendarOpen}
+              aria-haspopup="true"
+              onClick={() => setIsCalendarOpen((current) => !current)}
+            >
+              캘린더 저장
+            </ActionButton>
+            {isCalendarOpen ? (
+              <div
+                className="apple-card absolute bottom-full left-1/2 z-10 mb-2 flex w-max -translate-x-1/2 flex-col gap-2 p-2 shadow-[0_12px_32px_rgba(0,0,0,0.12)]"
+                id="calendar-menu"
+              >
+                <ActionButton className="w-full" href={deviceCalendar.href}>{deviceCalendar.label}</ActionButton>
+                <ActionButton className="w-full" href={googleCalendarUrl} rel="noreferrer" target="_blank">Google 캘린더</ActionButton>
+              </div>
+            ) : null}
+          </div>
           <ActionButton href="#contact">연락처</ActionButton>
         </div>
       </div>
