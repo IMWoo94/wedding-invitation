@@ -3,10 +3,15 @@ import { useRef, useState } from 'react'
 const configuredMusicSrc = (import.meta.env.VITE_WEDDING_MUSIC_URL as string | undefined)?.trim()
 const musicSrc = configuredMusicSrc || `${import.meta.env.BASE_URL}music/lee-mujin-highlight-30s.mp3`
 
+// iOS ignores programmatic media volume (hardware buttons only), so the
+// slider is hidden there to avoid a dead control.
+const supportsVolumeControl = !/iphone|ipad|ipod/i.test(navigator.userAgent)
+
 export function MusicControl() {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [statusText, setStatusText] = useState('음악 켜기')
+  const [volume, setVolume] = useState(0.35)
 
   const handleToggleMusic = async () => {
     const audio = audioRef.current
@@ -20,7 +25,7 @@ export function MusicControl() {
     }
 
     try {
-      audio.volume = 0.35
+      audio.volume = volume
       await audio.play()
       setIsPlaying(true)
       setStatusText('음악 끄기')
@@ -31,9 +36,33 @@ export function MusicControl() {
     }
   }
 
+  const handleVolumeChange = (value: number) => {
+    setVolume(value)
+
+    if (audioRef.current) {
+      audioRef.current.volume = value
+    }
+  }
+
   return (
-    <div className="fixed inset-x-0 bottom-4 z-50 mx-auto flex w-full max-w-[480px] justify-end px-5 pointer-events-none">
+    <div className="fixed inset-x-0 bottom-4 z-50 mx-auto flex w-full max-w-[480px] items-center justify-end gap-2 px-5 pointer-events-none">
       <audio ref={audioRef} loop preload="metadata" src={musicSrc} />
+      {isPlaying && supportsVolumeControl ? (
+        <label className="pointer-events-auto flex items-center gap-2 rounded-full border border-[#e0e0e0] bg-white/92 px-4 py-3 shadow-[0_12px_34px_rgba(0,0,0,0.16)] backdrop-blur dark:border-[#3a3a3c] dark:bg-[#2c2c2e]/92">
+          <span aria-hidden="true" className="text-[12px]">🔉</span>
+          <span className="sr-only">배경음악 볼륨</span>
+          <input
+            aria-label="배경음악 볼륨"
+            className="h-1 w-20 cursor-pointer accent-[#0066cc] dark:accent-[#409cff]"
+            max={100}
+            min={0}
+            onChange={(event) => handleVolumeChange(Number(event.target.value) / 100)}
+            step={5}
+            type="range"
+            value={Math.round(volume * 100)}
+          />
+        </label>
+      ) : null}
       <button
         aria-label={isPlaying ? '배경음악 끄기' : '배경음악 켜기'}
         aria-pressed={isPlaying}
