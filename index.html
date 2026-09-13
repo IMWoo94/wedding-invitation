@@ -28,6 +28,20 @@
     <meta name="twitter:image" content="https://imwoo94.github.io/wedding-invitation/wedding_og.png?v=1" />
     <meta name="twitter:image:alt" content="손그림 일러스트로 그려진 신랑 신부" />
     <title>누리 ❤︎ 상민 결혼합니다</title>
+    <script>
+      // Apply theme before first paint: saved choice wins, otherwise follow the system.
+      ;(function () {
+        try {
+          var theme = localStorage.getItem('wedding-theme')
+          if (theme !== 'dark' && theme !== 'light') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          }
+          document.documentElement.dataset.theme = theme
+        } catch (e) {
+          document.documentElement.dataset.theme = 'light'
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>
