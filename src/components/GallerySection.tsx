@@ -30,15 +30,19 @@ const photos = [
 export function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [modalIndex, setModalIndex] = useState<number | null>(null)
-  // Load only the photos near the active slide instead of all at once.
-  // Grows monotonically as the slideshow advances, so mutating during render is safe.
-  const loadedIndexesRef = useRef<Set<number>>(new Set())
   const touchStartXRef = useRef<number | null>(null)
 
-  const loadedIndexes = loadedIndexesRef.current
-  loadedIndexes.add(activeIndex)
-  loadedIndexes.add((activeIndex + 1) % photos.length)
-  loadedIndexes.add((activeIndex - 1 + photos.length) % photos.length)
+  // Render only the active slide and its neighbors instead of all photos at
+  // once; the browser cache makes revisited slides instant.
+  const loadedIndexes = useMemo(
+    () =>
+      new Set([
+        activeIndex,
+        (activeIndex + 1) % photos.length,
+        (activeIndex - 1 + photos.length) % photos.length,
+      ]),
+    [activeIndex],
+  )
   const isModalOpen = modalIndex !== null
   const slideLabel = useMemo(() => `${activeIndex + 1} / ${photos.length}`, [activeIndex])
   const modalSlideLabel = useMemo(
