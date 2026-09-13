@@ -14,6 +14,48 @@
   --font-text: 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+[data-theme='dark'] {
+  --apple-blue: #409cff;
+  --apple-blue-focus: #409cff;
+  --apple-ink: #f5f5f7;
+  --apple-body-muted: #98989d;
+  --apple-divider-soft: #2c2c2e;
+  --apple-hairline: #3a3a3c;
+  --apple-canvas: #1c1c1e;
+  --apple-canvas-parchment: #121214;
+  --apple-surface-pearl: #2c2c2e;
+}
+
+[data-theme='dark'] .apple-body {
+  color: #d1d1d6;
+}
+
+[data-theme='dark'] .apple-card {
+  background: rgba(28, 28, 30, 0.86);
+}
+
+[data-theme='dark'] .apple-frame {
+  border-color: rgba(58, 58, 60, 0.8);
+}
+
+[data-theme='dark'] .apple-pill-primary {
+  background: #0a84ff;
+}
+
+[data-theme='dark'] .rsvp-input,
+[data-theme='dark'] .rsvp-counter {
+  background: #1c1c1e;
+}
+
+[data-theme='dark'] .rsvp-input::placeholder {
+  color: #6e6e73;
+}
+
+[data-theme='dark'] .wedding-entrance::before {
+  opacity: 0;
+  animation: none;
+}
+
 .apple-frame {
   width: min(100%, 480px);
   margin: 0 auto;
@@ -325,6 +367,44 @@
     opacity: 0;
     transform: translateX(-8px) rotate(6deg);
     background-position: 22% 84%, 54% 94%, 78% 78%;
+  }
+}
+
+.intro-star {
+  position: absolute;
+  pointer-events: none;
+  color: #9db8ff;
+  animation: intro-twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes intro-twinkle {
+  0%,
+  100% {
+    opacity: 0.12;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.12);
+  }
+}
+
+.intro-heart {
+  display: inline-block;
+  animation: intro-heartbeat 1.1s ease-in-out infinite;
+  text-shadow: 0 0 12px rgba(255, 143, 163, 0.65);
+}
+
+@keyframes intro-heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.22);
+  }
+  45% {
+    transform: scale(1);
   }
 }
 

@@ -88,8 +88,8 @@ export function RsvpSection() {
   return (
     <Section id="rsvp" eyebrow="RSVP" title="참석 의사 전하기" centered>
       <div className="apple-card overflow-hidden text-left shadow-[0_18px_52px_rgba(0,0,0,0.07)]">
-        <div className="border-b border-[#e8e8ed] bg-[#fafafc] px-6 py-5 text-center">
-          <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f]">함께하실 수 있다면 편히 알려 주세요</p>
+        <div className="border-b border-[#e8e8ed] bg-[#fafafc] px-6 py-5 text-center dark:border-[#3a3a3c] dark:bg-[#232325]">
+          <p className="text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">함께하실 수 있다면 편히 알려 주세요</p>
           <p className="apple-caption mt-3 whitespace-pre-line leading-[1.75]">
             {`자리를 정성껏 준비하기 위해\n가능하신 인원만 살짝 알려 주세요.\n부담 없이 남겨 주셔도 괜찮습니다.`}
           </p>
@@ -112,7 +112,7 @@ export function RsvpSection() {
           {isFormOpen ? (
             <form id="rsvp-form-panel" className="mt-5 grid gap-4" onSubmit={handleSubmit}>
               <label className="grid gap-2">
-                <span className="apple-caption font-semibold text-[#1d1d1f]">이름</span>
+                <span className="apple-caption font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">이름</span>
                 <input
                   autoComplete="name"
                   className="rsvp-input"
@@ -126,7 +126,7 @@ export function RsvpSection() {
               </label>
 
               <div className="grid gap-2">
-                <span className="apple-caption font-semibold text-[#1d1d1f]">인원수</span>
+                <span className="apple-caption font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">인원수</span>
                 <div className="rsvp-counter" aria-label="참석 인원수 입력">
                   <button
                     aria-label="인원수 줄이기"
@@ -153,7 +153,7 @@ export function RsvpSection() {
                     type="text"
                     value={guestCount}
                   />
-                  <span className="text-[15px] font-semibold text-[#1d1d1f]">명</span>
+                  <span className="text-[15px] font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">명</span>
                   <button
                     aria-label="인원수 늘리기"
                     className="rsvp-counter-button"
@@ -181,10 +181,10 @@ export function RsvpSection() {
             <p
               className={`mt-4 rounded-[16px] px-4 py-3 text-center text-[14px] leading-relaxed ${
                 submitState === 'success'
-                  ? 'bg-[#effaf3] text-[#247a3e]'
+                  ? 'bg-[#effaf3] text-[#247a3e] dark:bg-[#12291a] dark:text-[#7ee2a8]'
                   : submitState === 'not-ready'
-                    ? 'bg-[#fff8e8] text-[#8a5a00]'
-                    : 'bg-[#fff2f2] text-[#b42318]'
+                    ? 'bg-[#fff8e8] text-[#8a5a00] dark:bg-[#2b2411] dark:text-[#e8c25a]'
+                    : 'bg-[#fff2f2] text-[#b42318] dark:bg-[#2d1414] dark:text-[#ff8a80]'
               }`}
               role="status"
             >

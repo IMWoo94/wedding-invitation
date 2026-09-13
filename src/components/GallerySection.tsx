@@ -110,7 +110,7 @@ export function GallerySection() {
 
   return (
     <Section id="gallery" eyebrow="Gallery" title="사진첩" centered>
-      <div className="overflow-hidden rounded-[32px] bg-[#f5f5f7] shadow-[0_24px_70px_rgba(0,0,0,0.1)]">
+      <div className="overflow-hidden rounded-[32px] bg-[#f5f5f7] shadow-[0_24px_70px_rgba(0,0,0,0.1)] dark:bg-[#2c2c2e]">
         <button
           aria-label={`${activeIndex + 1}번째 사진 크게 보기`}
           className="group relative block aspect-[4/5] w-full cursor-zoom-in overflow-hidden text-left"
@@ -142,7 +142,7 @@ export function GallerySection() {
         {photos.map((photo, index) => (
           <button
             aria-label={`${index + 1}번째 사진 보기`}
-            className={`h-2 rounded-full transition-all ${index === activeIndex ? 'w-7 bg-[#0066cc]' : 'w-2 bg-[#d2d2d7]'}`}
+            className={`h-2 rounded-full transition-all ${index === activeIndex ? 'w-7 bg-[#0066cc] dark:bg-[#409cff]' : 'w-2 bg-[#d2d2d7] dark:bg-[#48484a]'}`}
             key={photo.src}
             onClick={() => setActiveIndex(index)}
             type="button"

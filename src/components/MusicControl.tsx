@@ -37,7 +37,7 @@ export function MusicControl() {
       <button
         aria-label={isPlaying ? '배경음악 끄기' : '배경음악 켜기'}
         aria-pressed={isPlaying}
-        className="pointer-events-auto rounded-full border border-[#e0e0e0] bg-white/92 px-4 py-3 text-[14px] font-semibold tracking-[-0.02em] text-[#1d1d1f] shadow-[0_12px_34px_rgba(0,0,0,0.16)] backdrop-blur transition active:scale-95"
+        className="pointer-events-auto rounded-full border border-[#e0e0e0] bg-white/92 px-4 py-3 text-[14px] font-semibold tracking-[-0.02em] text-[#1d1d1f] shadow-[0_12px_34px_rgba(0,0,0,0.16)] backdrop-blur transition active:scale-95 dark:border-[#3a3a3c] dark:bg-[#2c2c2e]/92 dark:text-[#f5f5f7]"
         type="button"
         onClick={handleToggleMusic}
       >
