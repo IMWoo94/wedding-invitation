@@ -22,6 +22,11 @@ export function AccountSection() {
       return
     }
 
+    if (!/android|iphone|ipad|ipod/i.test(navigator.userAgent)) {
+      window.alert('토스 송금은 토스 앱이 설치된 휴대폰에서만 가능합니다.\nPC에서는 계좌번호 복사를 이용해 주세요.')
+      return
+    }
+
     if (window.confirm(`토스 앱에서 ${account.holder}님 계좌로 송금하시겠습니까?`)) {
       window.location.href = `supertoss://send?bank=${encodeURIComponent(account.tossBank)}&accountNo=${account.number.replace(/[^0-9]/g, '')}`
     }
