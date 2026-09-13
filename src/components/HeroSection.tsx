@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import heroPhoto from '../assets/gallery/photo-7.jpeg'
 import { invitation } from '../data/invitation'
 import { ActionButton } from './ActionButton'
 
@@ -68,18 +67,9 @@ export function HeroSection() {
         <a className="text-[#0066cc] no-underline dark:text-[#409cff]" href="#location">오시는 길</a>
       </nav>
 
-      <div className="hero-illustration mx-auto mt-8 flex h-80 w-full max-w-[360px] items-center justify-center overflow-hidden rounded-[36px] bg-[#f5f5f7] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)] dark:bg-[#2c2c2e]">
-        <div className="relative h-full w-full overflow-hidden rounded-[28px] bg-white">
-          <img
-            alt="신랑 신부 웨딩 일러스트"
-            className="hero-media-illustration absolute inset-0 h-full w-full object-contain"
-            src={heroImageSrc}
-          />
-          <img
-            alt="들판에서 함께 웃는 신랑 신부"
-            className="hero-media-photo absolute inset-0 h-full w-full object-cover"
-            src={heroPhoto}
-          />
+      <div className="hero-illustration mx-auto mt-8 w-full max-w-[360px] overflow-hidden rounded-[36px] bg-[#f5f5f7] p-3 shadow-[0_24px_60px_rgba(0,0,0,0.08)] dark:bg-[#2c2c2e]">
+        <div className="aspect-[3/2] w-full overflow-hidden rounded-[28px] bg-white">
+          <img alt="신랑 신부 웨딩 일러스트" className="h-full w-full object-cover" src={heroImageSrc} />
         </div>
       </div>
 
