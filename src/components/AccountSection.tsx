@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import tossSymbol from '../assets/icons/toss-symbol-white.png'
 import { invitation, type AccountEntry } from '../data/invitation'
 import { ActionButton } from './ActionButton'
 import { Section } from './Section'
@@ -93,10 +94,10 @@ export function AccountSection() {
                           <p className="apple-body mt-0.5 text-[15px]">{account.bank}</p>
                           <p className="apple-body mt-0.5 text-[15px]">{account.number}</p>
                         </div>
-                        <div className="flex shrink-0 flex-col items-stretch gap-2">
+                        <div className="flex shrink-0 items-center gap-2">
                           <ActionButton
                             aria-label={`${group.title} ${account.relation} 계좌번호 복사`}
-                            className="justify-center"
+                            className="justify-center px-3 py-2.5 text-[13px]"
                             onClick={() => handleCopy(rowKey, account.number)}
                           >
                             {copiedKey === rowKey ? '복사 완료' : '복사'}
@@ -104,11 +105,12 @@ export function AccountSection() {
                           {account.tossBank ? (
                             <ActionButton
                               aria-label={`${group.title} ${account.relation} 계좌로 토스 송금`}
-                              className="justify-center"
+                              className="justify-center px-3 py-2.5 text-[13px]"
                               href={`supertoss://send?bank=${encodeURIComponent(account.tossBank)}&accountNo=${account.number.replace(/[^0-9]/g, '')}&origin=qr`}
                               variant="primary"
                             >
-                              토스 송금
+                              <img alt="" aria-hidden="true" className="h-[14px] w-auto" src={tossSymbol} />
+                              송금
                             </ActionButton>
                           ) : null}
                         </div>
