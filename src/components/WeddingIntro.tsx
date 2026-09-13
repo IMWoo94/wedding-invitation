@@ -44,8 +44,11 @@ export function WeddingIntro({ onDone }: IntroProps) {
   const [memoriesPercent, setMemoriesPercent] = useState(0)
   const [happinessPercent, setHappinessPercent] = useState(0)
   const [fading, setFading] = useState(false)
+  const [isJumping, setIsJumping] = useState(false)
   // Random twinkle phase per visit.
   const [starDelays] = useState(() => STARS.map(() => `${(Math.random() * 2).toFixed(2)}s`))
+  // Pac-Man chomp speed varies a little per visit.
+  const [chompDuration] = useState(() => `${(0.24 + Math.random() * 0.12).toFixed(2)}s`)
   const doneRef = useRef(false)
 
   const finish = () => {
@@ -117,6 +120,16 @@ export function WeddingIntro({ onDone }: IntroProps) {
       timers.push(window.setTimeout(() => setHappinessPercent(percent), jitter(2150 + index * 200, 60)))
     })
 
+    // 4~8 random jumps along the run, at least 400ms apart.
+    const jumpCount = 4 + Math.floor(Math.random() * 5)
+    let jumpAt = between(300, 700)
+    for (let i = 0; i < jumpCount && jumpAt < 3900; i += 1) {
+      const at = jumpAt
+      timers.push(window.setTimeout(() => setIsJumping(true), at))
+      timers.push(window.setTimeout(() => setIsJumping(false), at + 320))
+      jumpAt += 400 + between(0, (3900 - jumpAt) / Math.max(1, jumpCount - i))
+    }
+
     timers.push(window.setTimeout(finish, FADE_AT + between(-150, 300)))
 
     return () => timers.forEach((timer) => window.clearTimeout(timer))
@@ -146,11 +159,22 @@ export function WeddingIntro({ onDone }: IntroProps) {
         <p className="text-[#a8a29e] dark:text-[#5a6478]">Version 2027.01</p>
 
         <div aria-hidden="true" className="relative mb-4 mt-2 h-7">
-          <span className="absolute inset-x-0 bottom-[4px] border-b border-dashed border-[#ded8ca] dark:border-[#2e3648]" />
-          <span className="intro-runner absolute bottom-[5px] left-0 text-[15px] leading-none">
-            <span className="intro-runner-hop inline-block">🤵</span>
+          {[10, 19, 28, 37, 46, 55, 64, 73, 82].map((percent) => (
+            <span
+              className="intro-pellet absolute top-[11px] h-[6px] w-[6px] rounded-full bg-[#f0b429]"
+              key={percent}
+              style={{ left: `${percent}%`, animationDelay: `${Math.max(0, Math.round(percent * 43) - 150)}ms` }}
+            />
+          ))}
+          <span
+            className="intro-pellet absolute right-0 top-[8px] h-3 w-3 rounded-full bg-[#f0b429]"
+            style={{ animationDelay: '4200ms' }}
+          />
+          <span className="intro-runner absolute left-0 top-[6px]">
+            <span className={`block ${isJumping ? 'intro-runner-jump' : ''}`}>
+              <span className="intro-pacman block" style={{ animationDuration: chompDuration }} />
+            </span>
           </span>
-          <span className="absolute bottom-[5px] right-0 text-[15px] leading-none">👰</span>
         </div>
 
         {step >= 1 ? <p className="text-[#78716c] dark:text-[#8b93a7]">Initializing system...</p> : null}

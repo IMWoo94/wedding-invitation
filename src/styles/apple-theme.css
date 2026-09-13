@@ -435,20 +435,52 @@
     left: 0;
   }
   to {
-    left: calc(100% - 38px);
+    left: calc(100% - 22px);
   }
 }
 
-.intro-runner-hop {
-  animation: intro-hop 0.32s ease-in-out infinite alternate;
+.intro-pacman {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffd23f;
+  animation: intro-chomp 0.28s linear infinite alternate;
 }
 
-@keyframes intro-hop {
+@keyframes intro-chomp {
   from {
-    transform: translateY(0);
+    clip-path: polygon(100% 0, 100% 26%, 50% 50%, 100% 74%, 100% 100%, 0 100%, 0 0);
   }
   to {
-    transform: translateY(-4px);
+    clip-path: polygon(100% 0, 100% 49%, 50% 50%, 100% 51%, 100% 100%, 0 100%, 0 0);
+  }
+}
+
+.intro-runner-jump {
+  animation: intro-jump 0.32s ease-out;
+}
+
+@keyframes intro-jump {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.intro-pellet {
+  animation-name: intro-eaten;
+  animation-duration: 0.12s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes intro-eaten {
+  to {
+    opacity: 0;
+    transform: scale(0.3);
   }
 }
 
