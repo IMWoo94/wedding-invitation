@@ -9,10 +9,34 @@ const rsvpSlackChannel = 'C0B2PFXVAPQ'
 
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error' | 'not-ready'
 
+type Attendance = 'yes' | 'no'
+type Meal = 'yes' | 'no' | 'undecided'
+
+const attendanceOptions: Array<{ value: Attendance; label: string }> = [
+  { value: 'yes', label: '참석합니다' },
+  { value: 'no', label: '참석이 어려워요' },
+]
+
+const mealOptions: Array<{ value: Meal; label: string }> = [
+  { value: 'yes', label: '식사 예정' },
+  { value: 'no', label: '식사 안 함' },
+  { value: 'undecided', label: '미정' },
+]
+
+function segmentClass(selected: boolean) {
+  return `rounded-full border px-4 py-2.5 text-[14px] font-medium transition active:scale-[0.98] ${
+    selected
+      ? 'border-transparent bg-[#0066cc] text-white dark:bg-[#0a84ff]'
+      : 'border-[#e0e0e0] bg-white text-[#555555] dark:border-[#3a3a3c] dark:bg-[#1c1c1e] dark:text-[#c7c7cc]'
+  }`
+}
+
 export function RsvpSection() {
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [guestName, setGuestName] = useState('')
   const [guestCount, setGuestCount] = useState('1')
+  const [attendance, setAttendance] = useState<Attendance>('yes')
+  const [meal, setMeal] = useState<Meal>('undecided')
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
 
   const trimmedName = guestName.trim()
@@ -55,10 +79,14 @@ export function RsvpSection() {
       dateStyle: 'medium',
       timeStyle: 'short',
     })
+    const attendanceLabel = attendanceOptions.find((option) => option.value === attendance)?.label ?? ''
+    const mealLabel = mealOptions.find((option) => option.value === meal)?.label ?? ''
     const text = [
       ':envelope_with_arrow: 참석 의사가 도착했습니다.',
       `• 이름: ${trimmedName}`,
+      `• 참석 여부: ${attendanceLabel}`,
       `• 인원수: ${normalizedGuestCount}명`,
+      `• 식사 여부: ${mealLabel}`,
       `• 예식일: ${invitation.event.dateText} ${invitation.event.timeText}`,
       `• 접수일시: ${submittedAt}`,
     ].join('\n')
@@ -79,6 +107,8 @@ export function RsvpSection() {
       setSubmitState('success')
       setGuestName('')
       setGuestCount('1')
+      setAttendance('yes')
+      setMeal('undecided')
       setIsFormOpen(false)
     } catch {
       setSubmitState('error')
@@ -124,6 +154,40 @@ export function RsvpSection() {
                   value={guestName}
                 />
               </label>
+
+              <div className="grid gap-2">
+                <span className="apple-caption font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">참석 여부</span>
+                <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="참석 여부 선택">
+                  {attendanceOptions.map((option) => (
+                    <button
+                      aria-pressed={attendance === option.value}
+                      className={segmentClass(attendance === option.value)}
+                      key={option.value}
+                      onClick={() => setAttendance(option.value)}
+                      type="button"
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-2">
+                <span className="apple-caption font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">식사 여부</span>
+                <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="식사 여부 선택">
+                  {mealOptions.map((option) => (
+                    <button
+                      aria-pressed={meal === option.value}
+                      className={segmentClass(meal === option.value)}
+                      key={option.value}
+                      onClick={() => setMeal(option.value)}
+                      type="button"
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               <div className="grid gap-2">
                 <span className="apple-caption font-semibold text-[#1d1d1f] dark:text-[#f5f5f7]">인원수</span>

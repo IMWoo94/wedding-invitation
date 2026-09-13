@@ -95,8 +95,9 @@ export function LocationSection() {
               <span className="block text-[15px] font-semibold tracking-[-0.02em] text-[#1d1d1f] dark:text-[#f5f5f7]">M스타하우스 약도</span>
               <span className="apple-caption mt-1 block">필요하실 때 펼쳐서 확인해 주세요.</span>
             </span>
-            <span className="text-[13px] font-medium text-[#0066cc] dark:text-[#409cff]">
+            <span className="flex shrink-0 items-center gap-1 text-[13px] font-medium text-[#0066cc] dark:text-[#409cff]">
               {isMapExpanded ? '접기' : '펼쳐 보기'}
+              <span aria-hidden="true" className={`inline-block transition-transform duration-300 ${isMapExpanded ? 'rotate-180' : ''}`}>⌄</span>
             </span>
           </button>
           {isMapExpanded ? (

@@ -81,8 +81,9 @@ export function AccountSection() {
                   </span>
                 </span>
                 {hasAccounts ? (
-                  <span className="shrink-0 text-[13px] font-medium text-[#0066cc] dark:text-[#409cff]">
+                  <span className="flex shrink-0 items-center gap-1 text-[13px] font-medium text-[#0066cc] dark:text-[#409cff]">
                     {isOpen ? '접기' : '펼쳐 보기'}
+                    <span aria-hidden="true" className={`inline-block transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>⌄</span>
                   </span>
                 ) : null}
               </button>
