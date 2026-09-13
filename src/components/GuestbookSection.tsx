@@ -1,11 +1,15 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
+import { slackChannel, slackWebhookUrl } from '../lib/slack'
 import { ActionButton } from './ActionButton'
 
-const slackWebhookUrl = import.meta.env.VITE_RSVP_SLACK_WEBHOOK_URL as string | undefined
-const slackChannel = 'C0B2PFXVAPQ'
-
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error' | 'not-ready'
+
+const statusMessages: Partial<Record<SubmitState, string>> = {
+  success: '따뜻한 축하 메시지가 전달되었습니다. 감사합니다!',
+  error: '전달 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.',
+  'not-ready': '메시지 전달용 Slack Webhook URL을 연결한 뒤 남길 수 있습니다.',
+}
 
 export function GuestbookCard() {
   const [isFormOpen, setIsFormOpen] = useState(false)
@@ -16,21 +20,7 @@ export function GuestbookCard() {
   const trimmedName = guestName.trim()
   const trimmedMessage = message.trim()
   const isSubmitting = submitState === 'submitting'
-  const statusMessage = useMemo(() => {
-    if (submitState === 'success') {
-      return '따뜻한 축하 메시지가 전달되었습니다. 감사합니다!'
-    }
-
-    if (submitState === 'error') {
-      return '전달 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.'
-    }
-
-    if (submitState === 'not-ready') {
-      return '메시지 전달용 Slack Webhook URL을 연결한 뒤 남길 수 있습니다.'
-    }
-
-    return ''
-  }, [submitState])
+  const statusMessage = statusMessages[submitState] ?? ''
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()

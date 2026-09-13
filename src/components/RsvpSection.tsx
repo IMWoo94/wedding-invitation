@@ -1,13 +1,17 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { invitation } from '../data/invitation'
+import { slackChannel, slackWebhookUrl } from '../lib/slack'
 import { ActionButton } from './ActionButton'
 import { segmentClass } from './segmentClass'
 
-const rsvpSlackWebhookUrl = import.meta.env.VITE_RSVP_SLACK_WEBHOOK_URL as string | undefined
-const rsvpSlackChannel = 'C0B2PFXVAPQ'
-
 type SubmitState = 'idle' | 'submitting' | 'success' | 'error' | 'not-ready'
+
+const statusMessages: Partial<Record<SubmitState, string>> = {
+  success: '소중한 마음이 전달되었습니다. 함께해 주시는 그 마음만으로도 깊이 감사드립니다.',
+  error: '전달 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.',
+  'not-ready': '참석 의사 전달용 Slack Webhook URL을 연결한 뒤 제출할 수 있습니다.',
+}
 
 type Attendance = 'yes' | 'no'
 type Meal = 'yes' | 'no' | 'undecided'
@@ -38,26 +42,12 @@ export function RsvpCard() {
     ? Math.floor(parsedGuestCount)
     : 1
   const isSubmitting = submitState === 'submitting'
-  const statusMessage = useMemo(() => {
-    if (submitState === 'success') {
-      return '소중한 마음이 전달되었습니다. 함께해 주시는 그 마음만으로도 깊이 감사드립니다.'
-    }
-
-    if (submitState === 'error') {
-      return '전달 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.'
-    }
-
-    if (submitState === 'not-ready') {
-      return '참석 의사 전달용 Slack Webhook URL을 연결한 뒤 제출할 수 있습니다.'
-    }
-
-    return ''
-  }, [submitState])
+  const statusMessage = statusMessages[submitState] ?? ''
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const webhookUrl = rsvpSlackWebhookUrl?.trim()
+    const webhookUrl = slackWebhookUrl?.trim()
 
     if (!webhookUrl) {
       setSubmitState('not-ready')
@@ -93,7 +83,7 @@ export function RsvpCard() {
           'Content-Type': 'text/plain;charset=utf-8',
         },
         body: JSON.stringify({
-          channel: rsvpSlackChannel,
+          channel: slackChannel,
           text,
         }),
       })
