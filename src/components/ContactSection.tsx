@@ -65,12 +65,12 @@ export function ContactSection() {
                       </div>
                       <ActionButton
                         aria-label={`${group.title} ${person.relation} ${person.name}에게 전화`}
+                        className="px-3 py-3"
                         href={`tel:${person.phone}`}
                         variant="secondary"
                       >
-                        <img alt="" aria-hidden="true" className="h-[16px] w-[16px] dark:hidden" src={phoneBlack} />
-                        <img alt="" aria-hidden="true" className="hidden h-[16px] w-[16px] dark:inline-block" src={phoneGreen} />
-                        전화
+                        <img alt="" aria-hidden="true" className="h-[18px] w-[18px] dark:hidden" src={phoneBlack} />
+                        <img alt="" aria-hidden="true" className="hidden h-[18px] w-[18px] dark:inline-block" src={phoneGreen} />
                       </ActionButton>
                     </div>
                   ))}
