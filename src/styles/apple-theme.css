@@ -432,27 +432,39 @@
 
 @keyframes intro-run {
   from {
-    left: 0;
+    left: 3px;
   }
   to {
-    left: calc(100% - 22px);
+    left: calc(100% - 26px);
   }
 }
 
-.intro-pacman {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #ffd23f;
-  animation: intro-chomp 0.28s linear infinite alternate;
+.intro-pac-frame-open {
+  animation: intro-pac-open 0.3s steps(1) infinite;
 }
 
-@keyframes intro-chomp {
-  from {
-    clip-path: polygon(100% 0, 100% 26%, 50% 50%, 100% 74%, 100% 100%, 0 100%, 0 0);
+.intro-pac-frame-closed {
+  opacity: 0;
+  animation: intro-pac-closed 0.3s steps(1) infinite;
+}
+
+@keyframes intro-pac-open {
+  0%,
+  100% {
+    opacity: 1;
   }
-  to {
-    clip-path: polygon(100% 0, 100% 49%, 50% 50%, 100% 51%, 100% 100%, 0 100%, 0 0);
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes intro-pac-closed {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
   }
 }
 

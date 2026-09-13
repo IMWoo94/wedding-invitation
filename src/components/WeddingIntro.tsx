@@ -19,6 +19,54 @@ const STARS = [
   { top: '90%', left: '64%', size: 12 },
 ]
 
+// 8-bit Pac-Man sprites painted with box-shadow pixels (two chomp frames).
+const PAC_PX = 1.5
+const PAC_OPEN_ROWS = [
+  '....#####....',
+  '..#########..',
+  '.###########.',
+  '.##########..',
+  '#########....',
+  '#######......',
+  '#####........',
+  '#######......',
+  '#########....',
+  '.##########..',
+  '.###########.',
+  '..#########..',
+  '....#####....',
+]
+const PAC_CLOSED_ROWS = [
+  '....#####....',
+  '..#########..',
+  '.###########.',
+  '.###########.',
+  '#############',
+  '#############',
+  '#########....',
+  '#############',
+  '#############',
+  '.###########.',
+  '.###########.',
+  '..#########..',
+  '....#####....',
+]
+
+function toPixelShadow(rows: string[]) {
+  const shadows: string[] = []
+  rows.forEach((row, y) => {
+    ;[...row].forEach((cell, x) => {
+      if (cell === '#') {
+        shadows.push(`${x * PAC_PX}px ${y * PAC_PX}px 0 0 #ffd23f`)
+      }
+    })
+  })
+  return shadows.join(', ')
+}
+
+const pacOpenShadow = toPixelShadow(PAC_OPEN_ROWS)
+const pacClosedShadow = toPixelShadow(PAC_CLOSED_ROWS)
+
 type PkgProps = {
   name: string
   percent: number
@@ -158,23 +206,32 @@ export function WeddingIntro({ onDone }: IntroProps) {
         <p className="text-[17px] font-semibold tracking-[0.3em] text-[#1d1d1f] dark:text-white">WEDDING OS</p>
         <p className="text-[#a8a29e] dark:text-[#5a6478]">Version 2027.01</p>
 
-        <div aria-hidden="true" className="relative mb-4 mt-2 h-7">
-          {[10, 19, 28, 37, 46, 55, 64, 73, 82].map((percent) => (
+        <div aria-hidden="true" className="mb-4 mt-2 rounded-[10px] border-2 border-[#2121de]/70 p-[3px] dark:border-[#4d5dff]/80">
+          <div className="relative h-8 rounded-[7px] border-2 border-[#2121de]/70 dark:border-[#4d5dff]/80">
+            {[12, 21, 30, 39, 48, 57, 66, 75, 84].map((percent) => (
+              <span
+                className="intro-pellet absolute top-[13px] h-[6px] w-[6px] rounded-[1px] bg-[#f0b429]"
+                key={percent}
+                style={{ left: `${percent}%`, animationDelay: `${Math.max(0, Math.round(percent * 43) - 150)}ms` }}
+              />
+            ))}
             <span
-              className="intro-pellet absolute top-[11px] h-[6px] w-[6px] rounded-full bg-[#f0b429]"
-              key={percent}
-              style={{ left: `${percent}%`, animationDelay: `${Math.max(0, Math.round(percent * 43) - 150)}ms` }}
+              className="intro-pellet absolute right-[5px] top-[10px] h-3 w-3 rounded-[2px] bg-[#f0b429]"
+              style={{ animationDelay: '4200ms' }}
             />
-          ))}
-          <span
-            className="intro-pellet absolute right-0 top-[8px] h-3 w-3 rounded-full bg-[#f0b429]"
-            style={{ animationDelay: '4200ms' }}
-          />
-          <span className="intro-runner absolute left-0 top-[6px]">
-            <span className={`block ${isJumping ? 'intro-runner-jump' : ''}`}>
-              <span className="intro-pacman block" style={{ animationDuration: chompDuration }} />
+            <span className="intro-runner absolute left-[3px] top-[6px]">
+              <span className={`relative block h-[20px] w-[20px] ${isJumping ? 'intro-runner-jump' : ''}`}>
+                <span
+                  className="intro-pac-frame-open absolute left-0 top-0 h-[2px] w-[2px]"
+                  style={{ boxShadow: pacOpenShadow, animationDuration: chompDuration }}
+                />
+                <span
+                  className="intro-pac-frame-closed absolute left-0 top-0 h-[2px] w-[2px]"
+                  style={{ boxShadow: pacClosedShadow, animationDuration: chompDuration }}
+                />
+              </span>
             </span>
-          </span>
+          </div>
         </div>
 
         {step >= 1 ? <p className="text-[#78716c] dark:text-[#8b93a7]">Initializing system...</p> : null}
