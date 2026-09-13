@@ -94,12 +94,25 @@ export function AccountSection() {
                           </p>
                           <p className="apple-body mt-0.5 text-[15px]">{account.number}</p>
                         </div>
-                        <ActionButton
-                          aria-label={`${group.title} ${account.relation} 계좌번호 복사`}
-                          onClick={() => handleCopy(rowKey, account.number)}
-                        >
-                          {copiedKey === rowKey ? '복사 완료' : '복사'}
-                        </ActionButton>
+                        <div className="flex shrink-0 flex-col items-stretch gap-2">
+                          <ActionButton
+                            aria-label={`${group.title} ${account.relation} 계좌번호 복사`}
+                            className="justify-center"
+                            onClick={() => handleCopy(rowKey, account.number)}
+                          >
+                            {copiedKey === rowKey ? '복사 완료' : '복사'}
+                          </ActionButton>
+                          {account.tossBank ? (
+                            <ActionButton
+                              aria-label={`${group.title} ${account.relation} 계좌로 토스 송금`}
+                              className="justify-center"
+                              href={`supertoss://send?bank=${encodeURIComponent(account.tossBank)}&accountNo=${account.number.replace(/[^0-9]/g, '')}&origin=qr`}
+                              variant="primary"
+                            >
+                              토스 송금
+                            </ActionButton>
+                          ) : null}
+                        </div>
                       </div>
                     )
                   })}

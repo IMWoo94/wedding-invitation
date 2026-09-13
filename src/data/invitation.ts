@@ -17,6 +17,7 @@ export type AccountEntry = {
   bank: string
   holder: string
   number: string
+  tossBank?: string
 }
 
 // Sensitive values (phones, bank accounts) are never committed to the repo.
@@ -47,6 +48,9 @@ type SensitivePayload = {
     bank: string
     holder: string
     number: string
+    // Bank name as Toss recognizes it (e.g. "대구은행" for an iM뱅크 account).
+    // When present, the account row shows a Toss transfer button.
+    tossBank?: string
   }>
 }
 
@@ -101,6 +105,7 @@ function accountsFor(side: 'groom' | 'bride'): AccountEntry[] {
       bank: account.bank,
       holder: account.holder,
       number: account.number,
+      tossBank: account.tossBank,
     }))
 }
 
