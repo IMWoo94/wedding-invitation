@@ -22,6 +22,73 @@ export type AccountInfo = {
   placeholder: string
 }
 
+// Sensitive values (phones, bank accounts) are never committed to the repo.
+// They are injected at build time from the GitHub Actions secret VITE_SENSITIVE_JSON:
+// {"groomPhone":"010-...","bridePhone":"010-...","accounts":[{"side":"groom","bank":"...","holder":"...","number":"..."}]}
+type SensitivePayload = {
+  groomPhone?: string
+  bridePhone?: string
+  accounts?: Array<{
+    side: 'groom' | 'bride' | 'family'
+    label?: string
+    bank: string
+    holder: string
+    number: string
+  }>
+}
+
+function readSensitivePayload(): SensitivePayload {
+  const raw = (import.meta.env.VITE_SENSITIVE_JSON as string | undefined)?.trim()
+  if (!raw) {
+    return {}
+  }
+
+  try {
+    return JSON.parse(raw) as SensitivePayload
+  } catch {
+    return {}
+  }
+}
+
+const sensitive = readSensitivePayload()
+
+const accountLabels = {
+  groom: '신랑 측 마음 전하실 곳',
+  bride: '신부 측 마음 전하실 곳',
+  family: '마음 전하실 곳',
+} as const
+
+const accounts: AccountInfo[] = sensitive.accounts?.length
+  ? sensitive.accounts.map((account) => ({
+      enabled: true,
+      side: account.side,
+      label: account.label ?? accountLabels[account.side],
+      bank: account.bank,
+      holder: account.holder,
+      number: account.number,
+      placeholder: '',
+    }))
+  : [
+      {
+        enabled: false,
+        side: 'groom',
+        label: '신랑 측 마음 전하실 곳',
+        bank: '',
+        holder: '',
+        number: '',
+        placeholder: '필요 시 공개 예정',
+      },
+      {
+        enabled: false,
+        side: 'bride',
+        label: '신부 측 마음 전하실 곳',
+        bank: '',
+        holder: '',
+        number: '',
+        placeholder: '필요 시 공개 예정',
+      },
+    ]
+
 export const invitation = {
   meta: {
     title: '누리 ❤︎ 상민 결혼합니다',
@@ -33,9 +100,9 @@ export const invitation = {
       name: '상민',
       fullName: '이상민',
       phone: {
-        enabled: false,
+        enabled: Boolean(sensitive.groomPhone),
         label: '신랑 연락처',
-        value: '',
+        value: sensitive.groomPhone ?? '',
         placeholder: '필요 시 공개 예정',
       },
     } satisfies Person,
@@ -44,9 +111,9 @@ export const invitation = {
       name: '누리',
       fullName: '백누리',
       phone: {
-        enabled: false,
+        enabled: Boolean(sensitive.bridePhone),
         label: '신부 연락처',
-        value: '',
+        value: sensitive.bridePhone ?? '',
         placeholder: '필요 시 공개 예정',
       },
     } satisfies Person,
@@ -72,24 +139,5 @@ export const invitation = {
     note: '사진은 자동 슬라이드로 천천히 넘어갑니다.',
     items: ['Photo 01', 'Photo 02', 'Photo 03', 'Photo 04'],
   },
-  accounts: [
-    {
-      enabled: false,
-      side: 'groom',
-      label: '신랑 측 마음 전하실 곳',
-      bank: '',
-      holder: '',
-      number: '',
-      placeholder: '필요 시 공개 예정',
-    },
-    {
-      enabled: false,
-      side: 'bride',
-      label: '신부 측 마음 전하실 곳',
-      bank: '',
-      holder: '',
-      number: '',
-      placeholder: '필요 시 공개 예정',
-    },
-  ] satisfies AccountInfo[],
+  accounts,
 } as const
