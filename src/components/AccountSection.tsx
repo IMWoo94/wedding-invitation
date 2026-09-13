@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import tossSymbol from '../assets/icons/toss-symbol-white.png'
+import tossMotionDark from '../assets/icons/toss-motion-dark.webp'
+import tossMotionLight from '../assets/icons/toss-motion-light.webp'
 import { invitation, type AccountEntry } from '../data/invitation'
 import { ActionButton } from './ActionButton'
 import { Section } from './Section'
@@ -31,6 +32,16 @@ const groups: Array<{ key: SideKey; title: string; accounts: readonly AccountEnt
 export function AccountSection() {
   const [openGroups, setOpenGroups] = useState<Record<SideKey, boolean>>({ groom: false, bride: false })
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
+
+  const openTossTransfer = (account: AccountEntry) => {
+    if (!account.tossBank) {
+      return
+    }
+
+    if (window.confirm(`토스 앱에서 ${account.holder}님 계좌로 송금하시겠습니까?`)) {
+      window.location.href = `supertoss://send?bank=${encodeURIComponent(account.tossBank)}&accountNo=${account.number.replace(/[^0-9]/g, '')}&origin=qr`
+    }
+  }
 
   const handleCopy = async (rowKey: string, number: string) => {
     try {
@@ -103,15 +114,15 @@ export function AccountSection() {
                             {copiedKey === rowKey ? '복사 완료' : '복사'}
                           </ActionButton>
                           {account.tossBank ? (
-                            <ActionButton
+                            <button
                               aria-label={`${group.title} ${account.relation} 계좌로 토스 송금`}
-                              className="justify-center px-3 py-2.5 text-[13px]"
-                              href={`supertoss://send?bank=${encodeURIComponent(account.tossBank)}&accountNo=${account.number.replace(/[^0-9]/g, '')}&origin=qr`}
-                              variant="primary"
+                              className="shrink-0 overflow-hidden rounded-[14px] border border-[#e0e0e0] transition active:scale-95 dark:border-[#3a3a3c]"
+                              onClick={() => openTossTransfer(account)}
+                              type="button"
                             >
-                              <img alt="" aria-hidden="true" className="h-[14px] w-auto" src={tossSymbol} />
-                              송금
-                            </ActionButton>
+                              <img alt="" aria-hidden="true" className="block h-11 w-11 dark:hidden" src={tossMotionLight} />
+                              <img alt="" aria-hidden="true" className="hidden h-11 w-11 dark:block" src={tossMotionDark} />
+                            </button>
                           ) : null}
                         </div>
                       </div>
