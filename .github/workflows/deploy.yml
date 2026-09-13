@@ -37,6 +37,7 @@ jobs:
         env:
           VITE_RSVP_SLACK_WEBHOOK_URL: ${{ secrets.VITE_RSVP_SLACK_WEBHOOK_URL }}
           VITE_WEDDING_MUSIC_URL: ${{ secrets.VITE_WEDDING_MUSIC_URL }}
+          VITE_SENSITIVE_JSON: ${{ secrets.VITE_SENSITIVE_JSON }}
         run: npm run build
 
       - name: Setup Pages
