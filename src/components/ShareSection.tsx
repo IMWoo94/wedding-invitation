@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ActionButton } from './ActionButton'
 import { Section } from './Section'
 
-const invitationUrl = 'https://imwoo94.github.io/wedding-invitation/'
+const invitationUrl = 'https://m.site.naver.com/2gy5H'
 
 async function copyTextToClipboard(text: string) {
   if (navigator.clipboard?.writeText) {
