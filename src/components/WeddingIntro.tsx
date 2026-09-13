@@ -9,14 +9,14 @@ const FADE_MS = 1200
 const FADE_AT = 4900
 
 const STARS = [
-  { top: '8%', left: '12%', size: 10, delay: '0s' },
-  { top: '14%', left: '78%', size: 13, delay: '0.6s' },
-  { top: '26%', left: '30%', size: 8, delay: '1.2s' },
-  { top: '34%', left: '88%', size: 9, delay: '0.3s' },
-  { top: '58%', left: '8%', size: 12, delay: '0.9s' },
-  { top: '72%', left: '84%', size: 10, delay: '1.5s' },
-  { top: '84%', left: '22%', size: 9, delay: '0.4s' },
-  { top: '90%', left: '64%', size: 12, delay: '1.1s' },
+  { top: '8%', left: '12%', size: 10 },
+  { top: '14%', left: '78%', size: 13 },
+  { top: '26%', left: '30%', size: 8 },
+  { top: '34%', left: '88%', size: 9 },
+  { top: '58%', left: '8%', size: 12 },
+  { top: '72%', left: '84%', size: 10 },
+  { top: '84%', left: '22%', size: 9 },
+  { top: '90%', left: '64%', size: 12 },
 ]
 
 type PkgProps = {
@@ -44,6 +44,8 @@ export function WeddingIntro({ onDone }: IntroProps) {
   const [memoriesPercent, setMemoriesPercent] = useState(0)
   const [happinessPercent, setHappinessPercent] = useState(0)
   const [fading, setFading] = useState(false)
+  // Random twinkle phase per visit.
+  const [starDelays] = useState(() => STARS.map(() => `${(Math.random() * 2).toFixed(2)}s`))
   const doneRef = useRef(false)
 
   const finish = () => {
@@ -62,7 +64,12 @@ export function WeddingIntro({ onDone }: IntroProps) {
       return undefined
     }
 
-    const stepSchedule = [
+    // Jitter every timing and progress step a little so each visit boots like
+    // a real system. Steps stay monotonic and the total stays within ±0.3s.
+    const between = (min: number, max: number) => min + Math.random() * (max - min)
+    const jitter = (at: number, range = 90) => at + between(-range, range)
+
+    const stepBase = [
       300, // Initializing system...
       550, // LOVE_MODULE OK
       700, // MEMORIES OK
@@ -80,32 +87,37 @@ export function WeddingIntro({ onDone }: IntroProps) {
       3800, // Building a lifetime together...
       4050, // 2027. 01. 31
     ]
+    let previousAt = 0
+    const stepSchedule = stepBase.map((at) => {
+      previousAt = Math.max(previousAt + 60, jitter(at))
+      return previousAt
+    })
     const timers = stepSchedule.map((at, index) =>
       window.setTimeout(() => setStep(index + 1), at),
     )
 
-    const memorySchedule: Array<[number, number]> = [
-      [1650, 18],
-      [1850, 47],
-      [2050, 82],
-      [2250, 100],
+    const memoryPercents = [
+      Math.round(between(12, 28)),
+      Math.round(between(38, 58)),
+      Math.round(between(66, 88)),
+      100,
     ]
-    memorySchedule.forEach(([at, percent]) => {
-      timers.push(window.setTimeout(() => setMemoriesPercent(percent), at))
+    memoryPercents.forEach((percent, index) => {
+      timers.push(window.setTimeout(() => setMemoriesPercent(percent), jitter(1650 + index * 200, 60)))
     })
 
-    const happinessSchedule: Array<[number, number]> = [
-      [2150, 12],
-      [2350, 38],
-      [2550, 64],
-      [2750, 91],
-      [2950, 100],
+    const happinessPercents = [
+      Math.round(between(8, 20)),
+      Math.round(between(30, 46)),
+      Math.round(between(54, 70)),
+      Math.round(between(80, 94)),
+      100,
     ]
-    happinessSchedule.forEach(([at, percent]) => {
-      timers.push(window.setTimeout(() => setHappinessPercent(percent), at))
+    happinessPercents.forEach((percent, index) => {
+      timers.push(window.setTimeout(() => setHappinessPercent(percent), jitter(2150 + index * 200, 60)))
     })
 
-    timers.push(window.setTimeout(finish, FADE_AT))
+    timers.push(window.setTimeout(finish, FADE_AT + between(-150, 300)))
 
     return () => timers.forEach((timer) => window.clearTimeout(timer))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -119,12 +131,12 @@ export function WeddingIntro({ onDone }: IntroProps) {
       }`}
       onClick={finish}
     >
-      {STARS.map((star) => (
+      {STARS.map((star, index) => (
         <span
           aria-hidden="true"
           className="intro-star"
           key={`${star.top}-${star.left}`}
-          style={{ top: star.top, left: star.left, fontSize: star.size, animationDelay: star.delay }}
+          style={{ top: star.top, left: star.left, fontSize: star.size, animationDelay: starDelays[index] }}
         >
           ✦
         </span>
