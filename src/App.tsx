@@ -8,6 +8,7 @@ import { MessageSection } from './components/MessageSection'
 import { MusicControl } from './components/MusicControl'
 import { RsvpSection } from './components/RsvpSection'
 import { ShareSection } from './components/ShareSection'
+import { ThemeToggle } from './components/ThemeToggle'
 import { WeddingIntro } from './components/WeddingIntro'
 
 function App() {
@@ -25,10 +26,11 @@ function App() {
         <ContactSection />
         <AccountSection />
         <ShareSection />
-        <footer className="px-6 pb-24 pt-10 text-center text-[12px] leading-relaxed text-[#7a7a7a]">
+        <footer className="px-6 pb-24 pt-10 text-center text-[12px] leading-relaxed text-[#7a7a7a] dark:text-[#98989d]">
           Made in Sangmin with love.<br />
           © 2026 Sangmin. All rights reserved.
         </footer>
+        <ThemeToggle />
         <MusicControl />
       </main>
     </>
