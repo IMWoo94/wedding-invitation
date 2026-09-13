@@ -149,7 +149,6 @@ export const invitation = {
   },
   gallery: {
     note: '사진은 자동 슬라이드로 천천히 넘어갑니다.',
-    items: ['Photo 01', 'Photo 02', 'Photo 03', 'Photo 04'],
   },
   accounts: {
     groom: accountsFor('groom'),
