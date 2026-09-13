@@ -105,7 +105,11 @@ export function HeroSection() {
               aria-controls="calendar-menu"
               aria-expanded={isCalendarOpen}
               aria-haspopup="true"
-              onClick={() => setIsCalendarOpen((current) => !current)}
+              onClick={(event) => {
+                // Keep this click from reaching the document listener above, which would close the menu at once.
+                event.stopPropagation()
+                setIsCalendarOpen((current) => !current)
+              }}
             >
               캘린더 저장
             </ActionButton>
