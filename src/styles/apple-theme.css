@@ -1,25 +1,19 @@
 :root {
   --apple-blue: #0066cc;
-  --apple-blue-focus: #0071e3;
-  --apple-blue-on-dark: #2997ff;
   --apple-ink: #1d1d1f;
   --apple-body-muted: #7a7a7a;
-  --apple-divider-soft: #f0f0f0;
   --apple-hairline: #e0e0e0;
   --apple-canvas: #ffffff;
   --apple-canvas-parchment: #f5f5f7;
   --apple-surface-pearl: #fafafc;
-  --apple-surface-dark: #272729;
   --font-display: 'Pretendard Variable', Pretendard, 'SF Pro Display', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-text: 'Pretendard Variable', Pretendard, 'SF Pro Text', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 [data-theme='dark'] {
   --apple-blue: #409cff;
-  --apple-blue-focus: #409cff;
   --apple-ink: #f5f5f7;
   --apple-body-muted: #98989d;
-  --apple-divider-soft: #2c2c2e;
   --apple-hairline: #3a3a3c;
   --apple-canvas: #1c1c1e;
   --apple-canvas-parchment: #121214;

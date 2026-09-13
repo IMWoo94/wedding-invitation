@@ -1,18 +1,10 @@
-export type Person = {
-  name: string
-  fullName: string
-  role: 'groom' | 'bride'
-}
-
 export type ContactPerson = {
-  side: 'groom' | 'bride'
   relation: string
   name: string
   phone: string
 }
 
 export type AccountEntry = {
-  side: 'groom' | 'bride'
   relation: string
   bank: string
   holder: string
@@ -79,7 +71,6 @@ function contactsFor(side: 'groom' | 'bride'): ContactPerson[] {
   const listed = (sensitive.contacts ?? [])
     .filter((contact) => contact.side === side && contact.name && contact.phone)
     .map((contact) => ({
-      side,
       relation: contact.relation || roleLabel,
       name: contact.name,
       phone: contact.phone,
@@ -91,7 +82,7 @@ function contactsFor(side: 'groom' | 'bride'): ContactPerson[] {
 
   const legacyPhone = side === 'groom' ? sensitive.groomPhone : sensitive.bridePhone
   return legacyPhone
-    ? [{ side, relation: roleLabel, name: coupleNames[side], phone: legacyPhone }]
+    ? [{ relation: roleLabel, name: coupleNames[side], phone: legacyPhone }]
     : []
 }
 
@@ -100,7 +91,6 @@ function accountsFor(side: 'groom' | 'bride'): AccountEntry[] {
   return (sensitive.accounts ?? [])
     .filter((account) => account.side === side && account.bank && account.number)
     .map((account) => ({
-      side,
       relation: account.relation || roleLabel,
       bank: account.bank,
       holder: account.holder,
@@ -110,21 +100,15 @@ function accountsFor(side: 'groom' | 'bride'): AccountEntry[] {
 }
 
 export const invitation = {
-  meta: {
-    title: '누리 ❤︎ 상민 결혼합니다',
-    description: '서로 다른 길을 걷던 두 사람이, 같은 방향을 바라보기로 했습니다.',
-  },
   couple: {
     groom: {
-      role: 'groom',
       name: '상민',
       fullName: '이상민',
-    } satisfies Person,
+    },
     bride: {
-      role: 'bride',
       name: '누리',
       fullName: '백누리',
-    } satisfies Person,
+    },
   },
   contacts: {
     groom: contactsFor('groom'),

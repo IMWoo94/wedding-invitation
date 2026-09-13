@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import photo1 from '../assets/gallery/photo-1.jpeg'
 import photo2 from '../assets/gallery/photo-2.jpeg'
 import photo3 from '../assets/gallery/photo-3.jpeg'
@@ -38,21 +38,14 @@ export function GallerySection() {
 
   // Render only the active slide and its neighbors instead of all photos at
   // once; the browser cache makes revisited slides instant.
-  const loadedIndexes = useMemo(
-    () =>
-      new Set([
-        activeIndex,
-        (activeIndex + 1) % photos.length,
-        (activeIndex - 1 + photos.length) % photos.length,
-      ]),
-    [activeIndex],
-  )
+  const loadedIndexes = new Set([
+    activeIndex,
+    (activeIndex + 1) % photos.length,
+    (activeIndex - 1 + photos.length) % photos.length,
+  ])
   const isModalOpen = modalIndex !== null
-  const slideLabel = useMemo(() => `${activeIndex + 1} / ${photos.length}`, [activeIndex])
-  const modalSlideLabel = useMemo(
-    () => (modalIndex === null ? '' : `${modalIndex + 1} / ${photos.length}`),
-    [modalIndex],
-  )
+  const slideLabel = `${activeIndex + 1} / ${photos.length}`
+  const modalSlideLabel = modalIndex === null ? '' : `${modalIndex + 1} / ${photos.length}`
 
   const showPreviousPhoto = useCallback(() => {
     setModalIndex((current) => {

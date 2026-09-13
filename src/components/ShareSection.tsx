@@ -1,25 +1,9 @@
 import { useState } from 'react'
+import { copyTextToClipboard } from '../lib/clipboard'
 import { ActionButton } from './ActionButton'
 import { Section } from './Section'
 
 const invitationUrl = 'https://m.site.naver.com/2gy5H'
-
-async function copyTextToClipboard(text: string) {
-  if (navigator.clipboard?.writeText) {
-    await navigator.clipboard.writeText(text)
-    return
-  }
-
-  const textarea = document.createElement('textarea')
-  textarea.value = text
-  textarea.setAttribute('readonly', '')
-  textarea.style.position = 'fixed'
-  textarea.style.top = '-9999px'
-  document.body.appendChild(textarea)
-  textarea.select()
-  document.execCommand('copy')
-  document.body.removeChild(textarea)
-}
 
 export function ShareSection() {
   const [shareLabel, setShareLabel] = useState('초대장 링크 복사하기')
