@@ -3,14 +3,28 @@ import photo1 from '../assets/gallery/photo-1.jpeg'
 import photo2 from '../assets/gallery/photo-2.jpeg'
 import photo3 from '../assets/gallery/photo-3.jpeg'
 import photo4 from '../assets/gallery/photo-4.jpeg'
+import photo5 from '../assets/gallery/photo-5.jpeg'
+import photo6 from '../assets/gallery/photo-6.jpeg'
+import photo7 from '../assets/gallery/photo-7.jpeg'
+import photo8 from '../assets/gallery/photo-8.jpeg'
+import photo9 from '../assets/gallery/photo-9.jpeg'
+import photo10 from '../assets/gallery/photo-10.jpeg'
+import photo11 from '../assets/gallery/photo-11.jpeg'
 import { invitation } from '../data/invitation'
 import { Section } from './Section'
 
 const photos = [
-  { src: photo1, alt: '웨딩 장소 샘플 사진 1' },
-  { src: photo2, alt: '웨딩 장소 샘플 사진 2' },
-  { src: photo3, alt: '웨딩 장소 샘플 사진 3' },
-  { src: photo4, alt: '웨딩 장소 샘플 사진 4' },
+  { src: photo1, alt: '누리와 상민 웨딩 사진 1' },
+  { src: photo2, alt: '누리와 상민 웨딩 사진 2' },
+  { src: photo3, alt: '누리와 상민 웨딩 사진 3' },
+  { src: photo4, alt: '누리와 상민 웨딩 사진 4' },
+  { src: photo5, alt: '누리와 상민 웨딩 사진 5' },
+  { src: photo6, alt: '누리와 상민 웨딩 사진 6' },
+  { src: photo7, alt: '누리와 상민 웨딩 사진 7' },
+  { src: photo8, alt: '누리와 상민 웨딩 사진 8' },
+  { src: photo9, alt: '누리와 상민 웨딩 사진 9' },
+  { src: photo10, alt: '누리와 상민 웨딩 사진 10' },
+  { src: photo11, alt: '누리와 상민 웨딩 사진 11' },
 ]
 
 export function GallerySection() {
@@ -114,7 +128,7 @@ export function GallerySection() {
             />
           ))}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent p-5 text-left text-white">
-            <p className="text-xs uppercase tracking-[0.24em] text-white/70">Sample Photo</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-white/70">Nuri &amp; Sangmin</p>
             <div className="mt-1 flex items-center justify-between gap-3">
               <p className="text-lg font-semibold tracking-[-0.03em]">{slideLabel}</p>
               <span className="rounded-full bg-white/18 px-3 py-1 text-xs font-medium text-white/90 opacity-90 backdrop-blur transition group-hover:bg-white/26">
