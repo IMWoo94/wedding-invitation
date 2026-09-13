@@ -426,6 +426,32 @@
   }
 }
 
+.intro-runner {
+  animation: intro-run 4.3s linear forwards;
+}
+
+@keyframes intro-run {
+  from {
+    left: 0;
+  }
+  to {
+    left: calc(100% - 38px);
+  }
+}
+
+.intro-runner-hop {
+  animation: intro-hop 0.32s ease-in-out infinite alternate;
+}
+
+@keyframes intro-hop {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-4px);
+  }
+}
+
 .intro-heart {
   display: inline-block;
   animation: intro-heartbeat 1.1s ease-in-out infinite;

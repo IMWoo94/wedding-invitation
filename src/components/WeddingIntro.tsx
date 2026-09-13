@@ -143,7 +143,15 @@ export function WeddingIntro({ onDone }: IntroProps) {
       ))}
       <div className="w-full max-w-[340px] font-mono text-[13px] leading-[1.9] text-[#4a463f] dark:text-[#f5f1e8]">
         <p className="text-[17px] font-semibold tracking-[0.3em] text-[#1d1d1f] dark:text-white">WEDDING OS</p>
-        <p className="mb-4 text-[#a8a29e] dark:text-[#5a6478]">Version 2027.01</p>
+        <p className="text-[#a8a29e] dark:text-[#5a6478]">Version 2027.01</p>
+
+        <div aria-hidden="true" className="relative mb-4 mt-2 h-7">
+          <span className="absolute inset-x-0 bottom-[4px] border-b border-dashed border-[#ded8ca] dark:border-[#2e3648]" />
+          <span className="intro-runner absolute bottom-[5px] left-0 text-[15px] leading-none">
+            <span className="intro-runner-hop inline-block">🤵</span>
+          </span>
+          <span className="absolute bottom-[5px] right-0 text-[15px] leading-none">👰</span>
+        </div>
 
         {step >= 1 ? <p className="text-[#78716c] dark:text-[#8b93a7]">Initializing system...</p> : null}
         {step >= 2 ? (
