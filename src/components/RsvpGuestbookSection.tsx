@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { GuestbookCard } from './GuestbookSection'
-import { RsvpCard, segmentClass } from './RsvpSection'
+import { RsvpCard } from './RsvpSection'
 import { Section } from './Section'
+import { segmentClass } from './segmentClass'
 
 type Tab = 'rsvp' | 'guestbook'
 
