@@ -29,12 +29,12 @@ function PackageLine({ name, percent }: PkgProps) {
 
   return (
     <p className="whitespace-pre">
-      <span className="text-[#f5f1e8]">{name.padEnd(16, ' ')}</span>
-      <span className="text-[#5a6478]">[</span>
-      <span className="text-[#7ee2a8]">{'█'.repeat(filled)}</span>
-      <span className="text-[#2e3648]">{'░'.repeat(18 - filled)}</span>
-      <span className="text-[#5a6478]">]</span>
-      <span className="text-[#7ee2a8]">{String(percent).padStart(4, ' ')}%</span>
+      <span className="text-[#4a463f] dark:text-[#f5f1e8]">{name.padEnd(16, ' ')}</span>
+      <span className="text-[#a8a29e] dark:text-[#5a6478]">[</span>
+      <span className="text-[#1f9d55] dark:text-[#7ee2a8]">{'█'.repeat(filled)}</span>
+      <span className="text-[#ded8ca] dark:text-[#2e3648]">{'░'.repeat(18 - filled)}</span>
+      <span className="text-[#a8a29e] dark:text-[#5a6478]">]</span>
+      <span className="text-[#1f9d55] dark:text-[#7ee2a8]">{String(percent).padStart(4, ' ')}%</span>
     </p>
   )
 }
@@ -114,7 +114,7 @@ export function WeddingIntro({ onDone }: IntroProps) {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[100] flex touch-none items-center justify-center overscroll-none bg-[#0a0e1a] px-6 transition-opacity duration-[1200ms] ease-out ${
+      className={`fixed inset-0 z-[100] flex touch-none items-center justify-center overscroll-none bg-[#f7f4ec] px-6 transition-opacity duration-[1200ms] ease-out dark:bg-[#0a0e1a] ${
         fading ? 'opacity-0' : 'opacity-100'
       }`}
       onClick={finish}
@@ -129,28 +129,30 @@ export function WeddingIntro({ onDone }: IntroProps) {
           ✦
         </span>
       ))}
-      <div className="w-full max-w-[340px] font-mono text-[13px] leading-[1.9] text-[#f5f1e8]">
-        <p className="text-[17px] font-semibold tracking-[0.3em] text-white">WEDDING OS</p>
-        <p className="mb-4 text-[#5a6478]">Version 2027.01</p>
+      <div className="w-full max-w-[340px] font-mono text-[13px] leading-[1.9] text-[#4a463f] dark:text-[#f5f1e8]">
+        <p className="text-[17px] font-semibold tracking-[0.3em] text-[#1d1d1f] dark:text-white">WEDDING OS</p>
+        <p className="mb-4 text-[#a8a29e] dark:text-[#5a6478]">Version 2027.01</p>
 
-        {step >= 1 ? <p className="text-[#8b93a7]">Initializing system...</p> : null}
+        {step >= 1 ? <p className="text-[#78716c] dark:text-[#8b93a7]">Initializing system...</p> : null}
         {step >= 2 ? (
           <p className="whitespace-pre">
-            LOVE_MODULE ......... <span className="text-[#7ee2a8]">OK</span>
+            LOVE_MODULE ......... <span className="text-[#1f9d55] dark:text-[#7ee2a8]">OK</span>
           </p>
         ) : null}
         {step >= 3 ? (
           <p className="whitespace-pre">
-            MEMORIES ............ <span className="text-[#7ee2a8]">OK</span>
+            MEMORIES ............ <span className="text-[#1f9d55] dark:text-[#7ee2a8]">OK</span>
           </p>
         ) : null}
         {step >= 4 ? (
           <p className="whitespace-pre">
-            FAMILY .............. <span className="text-[#7ee2a8]">OK</span>
+            FAMILY .............. <span className="text-[#1f9d55] dark:text-[#7ee2a8]">OK</span>
           </p>
         ) : null}
 
-        {step >= 5 ? <p className="mt-3 text-[#8b93a7]">Downloading wedding packages...</p> : null}
+        {step >= 5 ? (
+          <p className="mt-3 text-[#78716c] dark:text-[#8b93a7]">Downloading wedding packages...</p>
+        ) : null}
         {step >= 6 ? <PackageLine name="love.pkg" percent={100} /> : null}
         {step >= 7 ? <PackageLine name="trust.pkg" percent={100} /> : null}
         {step >= 8 ? <PackageLine name="memories.pkg" percent={memoriesPercent} /> : null}
@@ -158,29 +160,35 @@ export function WeddingIntro({ onDone }: IntroProps) {
         {step >= 10 ? <PackageLine name="laughter.pkg" percent={100} /> : null}
         {step >= 11 ? <PackageLine name="happiness.pkg" percent={happinessPercent} /> : null}
 
-        {step >= 12 ? <p className="mt-3 text-[#8b93a7]">Connecting two lives...</p> : null}
+        {step >= 12 ? (
+          <p className="mt-3 text-[#78716c] dark:text-[#8b93a7]">Connecting two lives...</p>
+        ) : null}
         {step >= 13 ? (
           <p className="text-center text-[14px]">
             {invitation.couple.bride.name}
-            <span className="text-[#5a6478]"> ────── </span>
-            <span className="intro-heart text-[#ff8fa3]">♥</span>
-            <span className="text-[#5a6478]"> ────── </span>
+            <span className="text-[#a8a29e] dark:text-[#5a6478]"> ────── </span>
+            <span className="intro-heart text-[#e0526f] dark:text-[#ff8fa3]">♥</span>
+            <span className="text-[#a8a29e] dark:text-[#5a6478]"> ────── </span>
             {invitation.couple.groom.name}
           </p>
         ) : null}
         {step >= 14 ? (
-          <p className="text-center tracking-[0.12em] text-[#7ee2a8] [text-shadow:0_0_14px_rgba(126,226,168,0.5)]">
+          <p className="text-center tracking-[0.12em] text-[#1f9d55] [text-shadow:0_0_14px_rgba(31,157,85,0.35)] dark:text-[#7ee2a8] dark:[text-shadow:0_0_14px_rgba(126,226,168,0.5)]">
             [ CONNECTION ESTABLISHED ]
           </p>
         ) : null}
 
-        {step >= 15 ? <p className="mt-3 text-[#8b93a7]">Building a lifetime together...</p> : null}
+        {step >= 15 ? (
+          <p className="mt-3 text-[#78716c] dark:text-[#8b93a7]">Building a lifetime together...</p>
+        ) : null}
         {step >= 16 ? (
-          <p className="mt-1 text-center text-[16px] tracking-[0.2em] text-[#9db8ff]">2027. 01. 31</p>
+          <p className="mt-1 text-center text-[16px] tracking-[0.2em] text-[#3a6fd8] dark:text-[#9db8ff]">
+            2027. 01. 31
+          </p>
         ) : null}
 
         <p className="mt-2">
-          <span className="inline-block h-[14px] w-[8px] animate-pulse bg-[#f5f1e8]" />
+          <span className="inline-block h-[14px] w-[8px] animate-pulse bg-[#4a463f] dark:bg-[#f5f1e8]" />
         </p>
       </div>
     </div>

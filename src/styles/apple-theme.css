@@ -373,8 +373,12 @@
 .intro-star {
   position: absolute;
   pointer-events: none;
-  color: #9db8ff;
+  color: #d4a95c;
   animation: intro-twinkle 2.4s ease-in-out infinite;
+}
+
+[data-theme='dark'] .intro-star {
+  color: #9db8ff;
 }
 
 @keyframes intro-twinkle {
@@ -392,6 +396,10 @@
 .intro-heart {
   display: inline-block;
   animation: intro-heartbeat 1.1s ease-in-out infinite;
+  text-shadow: 0 0 12px rgba(224, 82, 111, 0.45);
+}
+
+[data-theme='dark'] .intro-heart {
   text-shadow: 0 0 12px rgba(255, 143, 163, 0.65);
 }
 
