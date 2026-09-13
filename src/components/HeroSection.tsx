@@ -4,12 +4,33 @@ import { ActionButton } from './ActionButton'
 
 const heroImageSrc = `${import.meta.env.BASE_URL}wedding_og.png`
 
-const calendarUrl =
+// 2027-01-31 14:30–16:00 KST. Keep in sync with public/wedding.ics.
+const eventTitle = '누리 ❤︎ 상민 결혼식'
+const eventLocation = `${invitation.event.venueName} ${invitation.event.venueHall} (${invitation.event.venueAddress})`
+const eventDetails = '누리와 상민의 결혼식에 초대합니다.'
+
+const googleCalendarUrl =
   'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-  `&text=${encodeURIComponent('누리 ❤︎ 상민 결혼식')}` +
+  `&text=${encodeURIComponent(eventTitle)}` +
   '&dates=20270131T053000Z/20270131T070000Z' +
-  `&location=${encodeURIComponent(`${invitation.event.venueName} ${invitation.event.venueHall} (${invitation.event.venueAddress})`)}` +
-  `&details=${encodeURIComponent('누리와 상민의 결혼식에 초대합니다.')}`
+  `&location=${encodeURIComponent(eventLocation)}` +
+  `&details=${encodeURIComponent(eventDetails)}`
+
+// Android: system "insert event" intent — opens whichever calendar app is the default (Samsung, Google, ...).
+const androidCalendarUrl =
+  'intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.item/event' +
+  `;S.title=${encodeURIComponent(eventTitle)}` +
+  `;S.eventLocation=${encodeURIComponent(eventLocation)}` +
+  `;S.description=${encodeURIComponent(eventDetails)}` +
+  `;l.beginTime=${Date.UTC(2027, 0, 31, 5, 30)};l.endTime=${Date.UTC(2027, 0, 31, 7, 0)}` +
+  `;S.browser_fallback_url=${encodeURIComponent(googleCalendarUrl)};end`
+
+// iOS/desktop: static .ics — Safari shows the native "Add to Calendar" sheet without any app.
+const isAndroid = /android/i.test(navigator.userAgent)
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent)
+const deviceCalendar = isAndroid
+  ? { href: androidCalendarUrl, label: '기본 캘린더' }
+  : { href: `${import.meta.env.BASE_URL}wedding.ics`, label: isIOS ? 'iPhone 캘린더' : '캘린더 파일' }
 
 function getDdayLabel() {
   const weddingDay = new Date(2027, 0, 31)
@@ -65,7 +86,8 @@ export function HeroSection() {
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <ActionButton href="#location" variant="primary">위치 보기</ActionButton>
-          <ActionButton href={calendarUrl} rel="noreferrer" target="_blank">캘린더 저장</ActionButton>
+          <ActionButton href={deviceCalendar.href}>{deviceCalendar.label}</ActionButton>
+          <ActionButton href={googleCalendarUrl} rel="noreferrer" target="_blank">Google 캘린더</ActionButton>
           <ActionButton href="#contact">연락처</ActionButton>
         </div>
       </div>
