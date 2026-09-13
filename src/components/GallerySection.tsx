@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import photo1 from '../assets/gallery/photo-1.jpeg'
 import photo2 from '../assets/gallery/photo-2.jpeg'
 import photo3 from '../assets/gallery/photo-3.jpeg'
@@ -30,6 +30,15 @@ const photos = [
 export function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [modalIndex, setModalIndex] = useState<number | null>(null)
+  // Load only the photos near the active slide instead of all at once.
+  // Grows monotonically as the slideshow advances, so mutating during render is safe.
+  const loadedIndexesRef = useRef<Set<number>>(new Set())
+  const touchStartXRef = useRef<number | null>(null)
+
+  const loadedIndexes = loadedIndexesRef.current
+  loadedIndexes.add(activeIndex)
+  loadedIndexes.add((activeIndex + 1) % photos.length)
+  loadedIndexes.add((activeIndex - 1 + photos.length) % photos.length)
   const isModalOpen = modalIndex !== null
   const slideLabel = useMemo(() => `${activeIndex + 1} / ${photos.length}`, [activeIndex])
   const modalSlideLabel = useMemo(
@@ -56,6 +65,31 @@ export function GallerySection() {
       return (current + 1) % photos.length
     })
   }, [])
+
+  const handleModalTouchStart = (clientX: number) => {
+    touchStartXRef.current = clientX
+  }
+
+  const handleModalTouchEnd = (clientX: number) => {
+    const startX = touchStartXRef.current
+    touchStartXRef.current = null
+
+    if (startX === null) {
+      return
+    }
+
+    const delta = clientX - startX
+
+    if (Math.abs(delta) < 48) {
+      return
+    }
+
+    if (delta > 0) {
+      showPreviousPhoto()
+    } else {
+      showNextPhoto()
+    }
+  }
 
   const openPhotoModal = (index: number) => {
     setModalIndex(index)
@@ -117,16 +151,18 @@ export function GallerySection() {
           onClick={() => openPhotoModal(activeIndex)}
           type="button"
         >
-          {photos.map((photo, index) => (
-            <img
-              alt={photo.alt}
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
-                index === activeIndex ? 'opacity-100' : 'opacity-0'
-              }`}
-              key={photo.src}
-              src={photo.src}
-            />
-          ))}
+          {photos.map((photo, index) =>
+            loadedIndexes.has(index) ? (
+              <img
+                alt={photo.alt}
+                className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-out ${
+                  index === activeIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+                key={photo.src}
+                src={photo.src}
+              />
+            ) : null,
+          )}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/55 to-transparent p-5 text-left text-white">
             <p className="text-xs uppercase tracking-[0.24em] text-white/70">Nuri &amp; Sangmin</p>
             <div className="mt-1 flex items-center justify-between gap-3">
@@ -156,6 +192,8 @@ export function GallerySection() {
           aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/88 px-4 py-8 backdrop-blur-sm"
           onClick={closePhotoModal}
+          onTouchEnd={(event) => handleModalTouchEnd(event.changedTouches[0].clientX)}
+          onTouchStart={(event) => handleModalTouchStart(event.touches[0].clientX)}
           role="dialog"
         >
           <button
