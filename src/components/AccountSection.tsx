@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { invitation } from '../data/invitation'
+import { invitation, type AccountEntry } from '../data/invitation'
 import { ActionButton } from './ActionButton'
 import { Section } from './Section'
 
@@ -20,42 +20,94 @@ async function copyTextToClipboard(text: string) {
   document.body.removeChild(textarea)
 }
 
-export function AccountSection() {
-  const [copiedLabel, setCopiedLabel] = useState<string | null>(null)
+type SideKey = 'groom' | 'bride'
 
-  const handleCopy = async (label: string, number: string) => {
+const groups: Array<{ key: SideKey; title: string; accounts: readonly AccountEntry[] }> = [
+  { key: 'groom', title: '신랑 측 마음 전하실 곳', accounts: invitation.accounts.groom },
+  { key: 'bride', title: '신부 측 마음 전하실 곳', accounts: invitation.accounts.bride },
+]
+
+export function AccountSection() {
+  const [openGroups, setOpenGroups] = useState<Record<SideKey, boolean>>({ groom: false, bride: false })
+  const [copiedKey, setCopiedKey] = useState<string | null>(null)
+
+  const handleCopy = async (rowKey: string, number: string) => {
     try {
       await copyTextToClipboard(number)
-      setCopiedLabel(label)
-      window.setTimeout(() => setCopiedLabel((current) => (current === label ? null : current)), 1800)
+      setCopiedKey(rowKey)
+      window.setTimeout(() => setCopiedKey((current) => (current === rowKey ? null : current)), 1800)
     } catch {
-      setCopiedLabel(null)
+      setCopiedKey(null)
     }
   }
 
   return (
     <Section eyebrow="Account" title="마음 전하실 곳" centered>
       <div className="grid gap-3">
-        {invitation.accounts.map((account) => (
-          <div className="apple-card p-5 text-left" key={account.label}>
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="apple-caption">{account.label}</p>
-                <p className="mt-2 text-lg font-semibold tracking-[-0.03em]">
-                  {account.enabled ? `${account.bank} ${account.holder}` : account.placeholder}
-                </p>
-                {account.enabled ? <p className="apple-body mt-1">{account.number}</p> : null}
-              </div>
-              <ActionButton
-                aria-disabled={!account.enabled}
-                className={!account.enabled ? 'pointer-events-none opacity-50' : ''}
-                onClick={() => account.enabled && handleCopy(account.label, account.number)}
+        {groups.map((group) => {
+          const hasAccounts = group.accounts.length > 0
+          const isOpen = hasAccounts && openGroups[group.key]
+
+          return (
+            <div className="apple-card overflow-hidden text-left" key={group.key}>
+              <button
+                aria-controls={`account-panel-${group.key}`}
+                aria-expanded={isOpen}
+                className="flex w-full items-center justify-between gap-4 p-5 text-left transition active:scale-[0.995] disabled:cursor-default"
+                disabled={!hasAccounts}
+                onClick={() => setOpenGroups((current) => ({ ...current, [group.key]: !current[group.key] }))}
+                type="button"
               >
-                {copiedLabel === account.label ? '복사 완료' : '복사'}
-              </ActionButton>
+                <span>
+                  <span className="apple-caption block font-semibold">{group.title}</span>
+                  <span className="apple-caption mt-1 block">
+                    {hasAccounts
+                      ? isOpen
+                        ? `계좌 ${group.accounts.length}개`
+                        : '눌러서 계좌번호를 확인해 주세요.'
+                      : '필요 시 공개 예정'}
+                  </span>
+                </span>
+                {hasAccounts ? (
+                  <span className="shrink-0 text-[13px] font-medium text-[#0066cc] dark:text-[#409cff]">
+                    {isOpen ? '접기' : '펼쳐 보기'}
+                  </span>
+                ) : null}
+              </button>
+              {isOpen ? (
+                <div
+                  className="border-t border-[#e8e8ed] px-5 dark:border-[#3a3a3c]"
+                  id={`account-panel-${group.key}`}
+                >
+                  {group.accounts.map((account, index) => {
+                    const rowKey = `${group.key}-${index}`
+
+                    return (
+                      <div
+                        className="flex items-center justify-between gap-4 border-b border-[#e8e8ed] py-4 last:border-b-0 dark:border-[#3a3a3c]"
+                        key={rowKey}
+                      >
+                        <div>
+                          <p className="apple-caption">{account.relation}</p>
+                          <p className="mt-1 font-semibold tracking-[-0.02em]">
+                            {account.bank} {account.holder}
+                          </p>
+                          <p className="apple-body mt-0.5 text-[15px]">{account.number}</p>
+                        </div>
+                        <ActionButton
+                          aria-label={`${group.title} ${account.relation} 계좌번호 복사`}
+                          onClick={() => handleCopy(rowKey, account.number)}
+                        >
+                          {copiedKey === rowKey ? '복사 완료' : '복사'}
+                        </ActionButton>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : null}
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </Section>
   )

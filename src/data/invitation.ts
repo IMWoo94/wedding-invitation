@@ -1,36 +1,49 @@
-export type SensitiveText = {
-  enabled: boolean
-  label: string
-  value: string
-  placeholder: string
-}
-
 export type Person = {
   name: string
   fullName: string
   role: 'groom' | 'bride'
-  phone: SensitiveText
 }
 
-export type AccountInfo = {
-  enabled: boolean
-  side: 'groom' | 'bride' | 'family'
-  label: string
+export type ContactPerson = {
+  side: 'groom' | 'bride'
+  relation: string
+  name: string
+  phone: string
+}
+
+export type AccountEntry = {
+  side: 'groom' | 'bride'
+  relation: string
   bank: string
   holder: string
   number: string
-  placeholder: string
 }
 
 // Sensitive values (phones, bank accounts) are never committed to the repo.
 // They are injected at build time from the GitHub Actions secret VITE_SENSITIVE_JSON:
-// {"groomPhone":"010-...","bridePhone":"010-...","accounts":[{"side":"groom","bank":"...","holder":"...","number":"..."}]}
+// {
+//   "contacts": [
+//     {"side":"groom","relation":"신랑","name":"이상민","phone":"010-0000-0000"},
+//     {"side":"groom","relation":"아버지","name":"이OO","phone":"010-0000-0000"}
+//   ],
+//   "accounts": [
+//     {"side":"groom","relation":"신랑","bank":"카카오뱅크","holder":"이상민","number":"0000-00-0000000"}
+//   ]
+// }
+// Entries render in registration order. Legacy keys groomPhone/bridePhone are
+// still honored as a single contact per side when "contacts" is absent.
 type SensitivePayload = {
   groomPhone?: string
   bridePhone?: string
+  contacts?: Array<{
+    side: 'groom' | 'bride'
+    relation?: string
+    name: string
+    phone: string
+  }>
   accounts?: Array<{
-    side: 'groom' | 'bride' | 'family'
-    label?: string
+    side: 'groom' | 'bride'
+    relation?: string
     bank: string
     holder: string
     number: string
@@ -52,42 +65,44 @@ function readSensitivePayload(): SensitivePayload {
 
 const sensitive = readSensitivePayload()
 
-const accountLabels = {
-  groom: '신랑 측 마음 전하실 곳',
-  bride: '신부 측 마음 전하실 곳',
-  family: '마음 전하실 곳',
+const coupleNames = {
+  groom: '이상민',
+  bride: '백누리',
 } as const
 
-const accounts: AccountInfo[] = sensitive.accounts?.length
-  ? sensitive.accounts.map((account) => ({
-      enabled: true,
-      side: account.side,
-      label: account.label ?? accountLabels[account.side],
+function contactsFor(side: 'groom' | 'bride'): ContactPerson[] {
+  const roleLabel = side === 'groom' ? '신랑' : '신부'
+  const listed = (sensitive.contacts ?? [])
+    .filter((contact) => contact.side === side && contact.name && contact.phone)
+    .map((contact) => ({
+      side,
+      relation: contact.relation || roleLabel,
+      name: contact.name,
+      phone: contact.phone,
+    }))
+
+  if (listed.length) {
+    return listed
+  }
+
+  const legacyPhone = side === 'groom' ? sensitive.groomPhone : sensitive.bridePhone
+  return legacyPhone
+    ? [{ side, relation: roleLabel, name: coupleNames[side], phone: legacyPhone }]
+    : []
+}
+
+function accountsFor(side: 'groom' | 'bride'): AccountEntry[] {
+  const roleLabel = side === 'groom' ? '신랑' : '신부'
+  return (sensitive.accounts ?? [])
+    .filter((account) => account.side === side && account.bank && account.number)
+    .map((account) => ({
+      side,
+      relation: account.relation || roleLabel,
       bank: account.bank,
       holder: account.holder,
       number: account.number,
-      placeholder: '',
     }))
-  : [
-      {
-        enabled: false,
-        side: 'groom',
-        label: '신랑 측 마음 전하실 곳',
-        bank: '',
-        holder: '',
-        number: '',
-        placeholder: '필요 시 공개 예정',
-      },
-      {
-        enabled: false,
-        side: 'bride',
-        label: '신부 측 마음 전하실 곳',
-        bank: '',
-        holder: '',
-        number: '',
-        placeholder: '필요 시 공개 예정',
-      },
-    ]
+}
 
 export const invitation = {
   meta: {
@@ -99,24 +114,16 @@ export const invitation = {
       role: 'groom',
       name: '상민',
       fullName: '이상민',
-      phone: {
-        enabled: Boolean(sensitive.groomPhone),
-        label: '신랑 연락처',
-        value: sensitive.groomPhone ?? '',
-        placeholder: '필요 시 공개 예정',
-      },
     } satisfies Person,
     bride: {
       role: 'bride',
       name: '누리',
       fullName: '백누리',
-      phone: {
-        enabled: Boolean(sensitive.bridePhone),
-        label: '신부 연락처',
-        value: sensitive.bridePhone ?? '',
-        placeholder: '필요 시 공개 예정',
-      },
     } satisfies Person,
+  },
+  contacts: {
+    groom: contactsFor('groom'),
+    bride: contactsFor('bride'),
   },
   event: {
     dateText: '2027.01.31',
@@ -139,5 +146,8 @@ export const invitation = {
     note: '사진은 자동 슬라이드로 천천히 넘어갑니다.',
     items: ['Photo 01', 'Photo 02', 'Photo 03', 'Photo 04'],
   },
-  accounts,
+  accounts: {
+    groom: accountsFor('groom'),
+    bride: accountsFor('bride'),
+  },
 } as const
