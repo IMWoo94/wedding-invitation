@@ -30,6 +30,10 @@ const photos = [
 export function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [modalIndex, setModalIndex] = useState<number | null>(null)
+  // WCAG 2.2.2: auto-advance must be pausable; reduced-motion users start paused.
+  const [isAutoplayPaused, setIsAutoplayPaused] = useState(
+    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
   const touchStartXRef = useRef<number | null>(null)
 
   // Render only the active slide and its neighbors instead of all photos at
@@ -105,7 +109,7 @@ export function GallerySection() {
   }
 
   useEffect(() => {
-    if (isModalOpen) {
+    if (isModalOpen || isAutoplayPaused) {
       return undefined
     }
 
@@ -114,7 +118,7 @@ export function GallerySection() {
     }, 4200)
 
     return () => window.clearInterval(timer)
-  }, [isModalOpen])
+  }, [isModalOpen, isAutoplayPaused])
 
   useEffect(() => {
     if (!isModalOpen) {
@@ -178,7 +182,7 @@ export function GallerySection() {
           </div>
         </button>
       </div>
-      <div className="mt-5 flex justify-center gap-2" aria-label="사진 슬라이드 위치">
+      <div className="mt-5 flex items-center justify-center gap-2" aria-label="사진 슬라이드 위치">
         {photos.map((photo, index) => (
           <button
             aria-label={`${index + 1}번째 사진 보기`}
@@ -188,6 +192,15 @@ export function GallerySection() {
             type="button"
           />
         ))}
+        <button
+          aria-label={isAutoplayPaused ? '자동 넘김 재생' : '자동 넘김 일시정지'}
+          aria-pressed={isAutoplayPaused}
+          className="ml-2 flex h-7 w-7 items-center justify-center rounded-full bg-[#f5f5f7] text-[11px] text-[#555555] transition active:scale-95 dark:bg-[#2c2c2e] dark:text-[#c7c7cc]"
+          onClick={() => setIsAutoplayPaused((paused) => !paused)}
+          type="button"
+        >
+          {isAutoplayPaused ? '▶' : '❚❚'}
+        </button>
       </div>
       <p className="apple-caption mt-5">{invitation.gallery.note}</p>
 

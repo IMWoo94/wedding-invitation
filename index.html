@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="%BASE_URL%apple-touch-icon.png" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="robots" content="noindex, nofollow" />
     <meta name="description" content="서로 다른 길을 걷던 두 사람이, 같은 방향을 바라보기로 했습니다." />
 
@@ -39,6 +41,8 @@
             theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
           }
           document.documentElement.dataset.theme = theme
+          var meta = document.querySelector('meta[name="theme-color"]')
+          if (meta) meta.setAttribute('content', theme === 'dark' ? '#1c1c1e' : '#ffffff')
         } catch (e) {
           document.documentElement.dataset.theme = 'light'
         }
