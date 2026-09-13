@@ -187,7 +187,7 @@ export function WeddingIntro({ onDone }: IntroProps) {
   return (
     <div
       aria-hidden="true"
-      className={`fixed inset-0 z-[100] flex touch-none items-center justify-center overscroll-none bg-[#f7f4ec] px-6 transition-opacity duration-[1200ms] ease-out dark:bg-[#0a0e1a] ${
+      className={`fixed inset-0 z-[100] flex touch-none items-start justify-center overscroll-none bg-[#f7f4ec] px-6 pt-[12svh] transition-opacity duration-[1200ms] ease-out dark:bg-[#0a0e1a] ${
         fading ? 'opacity-0' : 'opacity-100'
       }`}
       onClick={finish}
