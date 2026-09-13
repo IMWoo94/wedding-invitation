@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import phoneBlack from '../assets/icons/phone-black.png'
+import phoneGreen from '../assets/icons/phone-green.png'
 import { invitation, type ContactPerson } from '../data/invitation'
 import { ActionButton } from './ActionButton'
 import { Section } from './Section'
@@ -66,6 +68,8 @@ export function ContactSection() {
                         href={`tel:${person.phone}`}
                         variant="secondary"
                       >
+                        <img alt="" aria-hidden="true" className="h-[16px] w-[16px] dark:hidden" src={phoneBlack} />
+                        <img alt="" aria-hidden="true" className="hidden h-[16px] w-[16px] dark:inline-block" src={phoneGreen} />
                         전화
                       </ActionButton>
                     </div>
