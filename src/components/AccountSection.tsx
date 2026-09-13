@@ -39,7 +39,7 @@ export function AccountSection() {
     }
 
     if (window.confirm(`토스 앱에서 ${account.holder}님 계좌로 송금하시겠습니까?`)) {
-      window.location.href = `supertoss://send?bank=${encodeURIComponent(account.tossBank)}&accountNo=${account.number.replace(/[^0-9]/g, '')}&origin=qr`
+      window.location.href = `supertoss://send?bank=${encodeURIComponent(account.tossBank)}&accountNo=${account.number.replace(/[^0-9]/g, '')}`
     }
   }
 
