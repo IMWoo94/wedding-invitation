@@ -1,31 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import photo1 from '../assets/gallery/photo-1.jpeg'
-import photo2 from '../assets/gallery/photo-2.jpeg'
-import photo3 from '../assets/gallery/photo-3.jpeg'
-import photo4 from '../assets/gallery/photo-4.jpeg'
-import photo5 from '../assets/gallery/photo-5.jpeg'
-import photo6 from '../assets/gallery/photo-6.jpeg'
-import photo7 from '../assets/gallery/photo-7.jpeg'
-import photo8 from '../assets/gallery/photo-8.jpeg'
-import photo9 from '../assets/gallery/photo-9.jpeg'
-import photo10 from '../assets/gallery/photo-10.jpeg'
-import photo11 from '../assets/gallery/photo-11.jpeg'
 import { invitation } from '../data/invitation'
 import { Section } from './Section'
 
-const photos = [
-  { src: photo1, alt: '누리와 상민 웨딩 사진 1' },
-  { src: photo2, alt: '누리와 상민 웨딩 사진 2' },
-  { src: photo3, alt: '누리와 상민 웨딩 사진 3' },
-  { src: photo4, alt: '누리와 상민 웨딩 사진 4' },
-  { src: photo5, alt: '누리와 상민 웨딩 사진 5' },
-  { src: photo6, alt: '누리와 상민 웨딩 사진 6' },
-  { src: photo7, alt: '누리와 상민 웨딩 사진 7' },
-  { src: photo8, alt: '누리와 상민 웨딩 사진 8' },
-  { src: photo9, alt: '누리와 상민 웨딩 사진 9' },
-  { src: photo10, alt: '누리와 상민 웨딩 사진 10' },
-  { src: photo11, alt: '누리와 상민 웨딩 사진 11' },
-]
+// Every photo-NN.jpg in the gallery folder, in filename order.
+const photos = Object.entries(
+  import.meta.glob<string>('../assets/gallery/photo-*.jpg', { eager: true, import: 'default' }),
+)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([, src], index) => ({ src, alt: `누리와 상민 웨딩 사진 ${index + 1}` }))
 
 export function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -175,11 +157,11 @@ export function GallerySection() {
           </div>
         </button>
       </div>
-      <div className="mt-5 flex items-center justify-center gap-2" aria-label="사진 슬라이드 위치">
+      <div className="mt-5 flex items-center justify-center gap-1.5" aria-label="사진 슬라이드 위치">
         {photos.map((photo, index) => (
           <button
             aria-label={`${index + 1}번째 사진 보기`}
-            className={`h-2 rounded-full transition-all ${index === activeIndex ? 'w-7 bg-[#0066cc] dark:bg-[#409cff]' : 'w-2 bg-[#d2d2d7] dark:bg-[#48484a]'}`}
+            className={`h-2 rounded-full transition-all ${index === activeIndex ? 'w-5 bg-[#0066cc] dark:bg-[#409cff]' : 'w-1.5 bg-[#d2d2d7] dark:bg-[#48484a]'}`}
             key={photo.src}
             onClick={() => setActiveIndex(index)}
             type="button"

@@ -39,7 +39,7 @@ Latest checked commit: `c5222bb feat: optimize assets and add footer shortcuts`
 - 장소: M스타하우스웨딩&컨벤션 2층 모닝스타홀
 - 주소: 대구 동구 동촌로 316
 - 교통: 1호선 방촌역 3번 출구 도보 5분
-- 갤러리 사진 4장
+- 갤러리 사진 20장
 - 지도 약도 이미지
 - 30초 배경음악 하이라이트
 - RSVP 이름/인원수 제출 기능
@@ -160,10 +160,7 @@ QA 중 실제 테스트 RSVP가 1건 전송되었을 수 있음:
 
 원본 위치:
 
-- `src/assets/gallery/photo-1.jpeg`
-- `src/assets/gallery/photo-2.jpeg`
-- `src/assets/gallery/photo-3.jpeg`
-- `src/assets/gallery/photo-4.jpeg`
+- `src/assets/gallery/photo-01.jpg` ~ `photo-20.jpg` (긴 변 1600px, 파일명 순서대로 자동 노출)
 
 갤러리 컴포넌트:
 
